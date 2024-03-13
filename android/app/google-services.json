@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "550735419093",
+    "project_id": "fuelme-35a6a",
+    "storage_bucket": "fuelme-35a6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550735419093:android:060542fca643ed4415345c",
+        "android_client_info": {
+          "package_name": "com.example.mic_fuel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW9zuVeFJI4WCx-904tuI1X04EzvJo_DI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
