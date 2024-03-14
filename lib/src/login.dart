@@ -3,6 +3,8 @@ import 'package:mic_fuel/src/forget_pass.dart';
 import 'package:mic_fuel/src/home.dart';
 import 'package:mic_fuel/src/signup.dart';
 
+import '../services/auth.dart';
+
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
 
@@ -11,8 +13,18 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogIn extends State<LogIn> {
+  final Authservice _auth = Authservice();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    passwordController.dispose();
+    // emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

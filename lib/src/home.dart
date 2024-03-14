@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mic_fuel/mock/mock.dart';
+import 'package:mic_fuel/services/auth.dart';
 import 'package:mic_fuel/src/bio.dart';
 import 'package:mic_fuel/src/profile.dart';
 
@@ -30,6 +33,8 @@ class _HomeState extends State<Home> {
                   icon: IconButton(
                     icon: Icon(Icons.oil_barrel),
                     onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                      //create a signOut btn to sign out user
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => Home()),
