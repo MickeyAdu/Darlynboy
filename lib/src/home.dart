@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
             elevation: 5),
         backgroundColor: Colors.amber,
         appBar: AppBar(
-          title: const Text('Speed Stop'),
+          title: const Text('Fuel Me'),
           centerTitle: true,
         ),
         body: Center(
