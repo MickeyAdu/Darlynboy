@@ -28,27 +28,28 @@ class _HomeState extends State<Home> {
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                   icon: IconButton(
-                    icon: Icon(Icons.oil_barrel),
+                    icon: const Icon(Icons.oil_barrel),
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Home()),
+                        MaterialPageRoute(builder: (context) => const Home()),
                       );
                     },
                   ),
                   label: 'Fuel',
                   backgroundColor: Colors.green),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                   icon: Icon(Icons.car_repair),
                   label: 'Stations',
                   backgroundColor: Colors.yellow),
               BottomNavigationBarItem(
                 icon: IconButton(
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => userProfile()),
+                      MaterialPageRoute(
+                          builder: (context) => const userProfile()),
                     );
                   },
                 ),
