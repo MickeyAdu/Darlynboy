@@ -66,7 +66,7 @@ class _LogIn extends State<LogIn> {
                     TextField(
                       controller: _nameController,
                       decoration: InputDecoration(
-                        border: const OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.amber)),
                         labelText: 'User Name',
                         errorText: _isErrorUsername ? _errorTextUsername : null,
@@ -85,7 +85,7 @@ class _LogIn extends State<LogIn> {
                     obscureText: true,
                     controller: _passwordController,
                     decoration: InputDecoration(
-                      border: const OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.amber),
                       ),
                       labelText: 'Password',

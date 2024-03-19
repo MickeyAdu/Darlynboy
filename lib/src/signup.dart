@@ -108,7 +108,7 @@ class _SignUp extends State<SignUp> {
                       TextField(
                         controller: nameController,
                         decoration: InputDecoration(
-                          border: const OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.amber),
                           ),
                           labelText: 'User Name',
