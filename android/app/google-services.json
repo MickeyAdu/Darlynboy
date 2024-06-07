@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "306258508499",
+    "project_id": "yolo-fb5dd",
+    "storage_bucket": "yolo-fb5dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306258508499:android:e5fe60fe93ba5099b07226",
+        "android_client_info": {
+          "package_name": "com.example.yolo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB68FbjBiJq-Cysh5DHyK4eETqIgUgC0ag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
