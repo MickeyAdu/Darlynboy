@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "550735419093",
+    "firebase_url": "https://fuelme-35a6a-default-rtdb.firebaseio.com",
+    "project_id": "fuelme-35a6a",
+    "storage_bucket": "fuelme-35a6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550735419093:android:c4c57535b6217bf015345c",
+        "android_client_info": {
+          "package_name": "com.example.fuel_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550735419093-qkgiea5ls96hgorbqsn4paip9dj3nd30.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fuel_me",
+            "certificate_hash": "a789e505c817a122ea906ea6eaa3d48b3a30ab18"
+          }
+        },
+        {
+          "client_id": "550735419093-1m51khn331k949edpnmvf7pi0vcd2o9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW9zuVeFJI4WCx-904tuI1X04EzvJo_DI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550735419093-1m51khn331k949edpnmvf7pi0vcd2o9c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "550735419093-00neaf44rsk4mnbf32qrqc1shinqbbnr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.micFuel.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550735419093:android:060542fca643ed4415345c",
+        "android_client_info": {
+          "package_name": "com.example.mic_fuel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550735419093-938nir9in7krqv34jh427v35ieahugpg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mic_fuel",
+            "certificate_hash": "a789e505c817a122ea906ea6eaa3d48b3a30ab18"
+          }
+        },
+        {
+          "client_id": "550735419093-1m51khn331k949edpnmvf7pi0vcd2o9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW9zuVeFJI4WCx-904tuI1X04EzvJo_DI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550735419093-1m51khn331k949edpnmvf7pi0vcd2o9c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "550735419093-00neaf44rsk4mnbf32qrqc1shinqbbnr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.micFuel.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
