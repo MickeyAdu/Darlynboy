@@ -61,9 +61,10 @@ class _SignupState extends State<Signup> {
                 height: 220,
                 width: mediaQuery.width,
                 decoration: const BoxDecoration(
-                  color: KColors
-                      .secondaryGreen, // Replace with KColors.secondaryGreen
-                ),
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [KColors.primaryOrange, KColors.primaryWhite])),
                 child: Column(
                   children: [
                     Padding(

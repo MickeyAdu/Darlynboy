@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mic_fuel/src/final_page.dart';
 import 'package:mic_fuel/src/live_tracking_methods.dart';
 import 'package:mic_fuel/src/transaction/api_key/api_key.dart';
 import 'package:mic_fuel/src/transaction/paystack/paystack_auth_respose.dart';
@@ -53,20 +54,6 @@ class _PayPageState extends State<PayPage> {
     }
   }
 
-  Future<String> fetchLocation() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final doc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-      if (doc.exists) {
-        return doc.data()?['location'] ?? 'Unknown location';
-      }
-    }
-    throw 'Location not found';
-  }
-
   Future<bool> verifyTransaction(String? reference) async {
     final url = 'https://api.paystack.co/transaction/verify/$reference';
     final headers = {
@@ -91,12 +78,12 @@ class _PayPageState extends State<PayPage> {
     }
   }
 
-  void _onPageFinished(String url, String location) async {
+  void _onPageFinished(String url) async {
     print(url);
     if (url.contains("https://michealadu.com")) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => MapScreen(location: location),
+          builder: (context) => ProgressScreen(),
         ),
       );
     } else {}
@@ -133,84 +120,58 @@ class _PayPageState extends State<PayPage> {
                   ),
                 );
               }
-              return FutureBuilder<String>(
-                future: fetchLocation(),
-                builder: (context, locationSnapshot) {
-                  if (locationSnapshot.connectionState ==
+              return FutureBuilder<PaystackAuthRespose>(
+                future: createTransaction(
+                  my_transaction.Transaction(
+                    amount: (double.parse(widget.amount) * 100).toInt(),
+                    currency: 'GHS',
+                    email: email,
+                  ),
+                  email,
+                ),
+                builder: (context, transactionSnapshot) {
+                  if (transactionSnapshot.connectionState ==
                       ConnectionState.waiting) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (locationSnapshot.hasError ||
-                      !locationSnapshot.hasData) {
+                  } else if (transactionSnapshot.hasError ||
+                      !transactionSnapshot.hasData) {
                     return Center(
                       child: Text(
-                        'Error fetching location: ${locationSnapshot.error ?? "Unknown error"}',
+                        'Error initializing transaction: ${transactionSnapshot.error ?? "Unknown error"}',
                         textAlign: TextAlign.center,
                         style: const TextStyle(color: Colors.red),
                       ),
                     );
                   } else {
-                    final location = locationSnapshot.data!;
-                    final emailLoad = email;
-                    return FutureBuilder<PaystackAuthRespose>(
-                      future: createTransaction(
-                        my_transaction.Transaction(
-                          amount: (double.parse(widget.amount) * 100).toInt(),
-                          currency: 'GHS',
-                          email: emailLoad,
-                        ),
-                        emailLoad,
-                      ),
-                      builder: (context, transactionSnapshot) {
-                        if (transactionSnapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else if (transactionSnapshot.hasError ||
-                            !transactionSnapshot.hasData) {
-                          return Center(
-                            child: Text(
-                              'Error initializing transaction: ${transactionSnapshot.error ?? "Unknown error"}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.red),
-                            ),
-                          );
-                        } else {
-                          final url =
-                              transactionSnapshot.data!.authorization_url;
-                          return WebViewWidget(
-                            controller: WebViewController()
-                              ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                              ..setBackgroundColor(const Color(0x00000000))
-                              ..setNavigationDelegate(
-                                NavigationDelegate(
-                                  onProgress: (int progress) {
-                                    _onPageFinished(url, location);
-                                  },
-                                  onPageStarted: (String url) {
-                                    _onPageFinished(url, location);
-                                  },
-                                  onPageFinished: (String url) {
-                                    _onPageFinished(url, location);
-                                  },
-                                  onWebResourceError:
-                                      (WebResourceError error) {},
-                                  onNavigationRequest:
-                                      (NavigationRequest request) {
-                                    if (request.url.startsWith(
-                                        'https://www.youtube.com/')) {
-                                      return NavigationDecision.prevent;
-                                    }
-                                    return NavigationDecision.navigate;
-                                  },
-                                ),
-                              )
-                              ..loadRequest(Uri.parse(url)),
-                          );
-                        }
-                      },
+                    final url = transactionSnapshot.data!.authorization_url;
+                    return WebViewWidget(
+                      controller: WebViewController()
+                        ..setJavaScriptMode(JavaScriptMode.unrestricted)
+                        ..setBackgroundColor(const Color(0x00000000))
+                        ..setNavigationDelegate(
+                          NavigationDelegate(
+                            onProgress: (int progress) {
+                              _onPageFinished(url);
+                            },
+                            onPageStarted: (String url) {
+                              _onPageFinished(url);
+                            },
+                            onPageFinished: (String url) {
+                              _onPageFinished(url);
+                            },
+                            onWebResourceError: (WebResourceError error) {},
+                            onNavigationRequest: (NavigationRequest request) {
+                              if (request.url
+                                  .startsWith('https://www.youtube.com/')) {
+                                return NavigationDecision.prevent;
+                              }
+                              return NavigationDecision.navigate;
+                            },
+                          ),
+                        )
+                        ..loadRequest(Uri.parse(url)),
                     );
                   }
                 },

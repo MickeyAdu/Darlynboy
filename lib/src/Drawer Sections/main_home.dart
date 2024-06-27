@@ -1,4 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/maki_icons.dart';
@@ -17,7 +18,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   GoogleMapController? mapController;
   Location location = Location();
-  final LatLng _initialPosition = LatLng(6.6731, -1.5637);
+  LatLng _initialPosition = LatLng(6.6731, -1.5637);
+  Set<Marker> _markers = {};
 
   // List of fuel stations
   final List<String> fuelStations = [
@@ -27,6 +29,26 @@ class _HomeScreenState extends State<HomeScreen> {
     "Petrosol Fuel Station"
   ];
 
+  // Fixed coordinates for different fuel stations
+  final List<List<LatLng>> fuelStationsCoordinates = [
+    [
+      LatLng(6.683, -1.565), // Total station 1
+      LatLng(6.693, -1.575), // Total station 2
+    ],
+    [
+      LatLng(6.672, -1.564), // Shell station 1
+      LatLng(6.681, -1.572), // Shell station 2
+    ],
+    [
+      LatLng(6.675, -1.563), // Goil station 1
+      LatLng(6.688, -1.577), // Goil station 2
+    ],
+    [
+      LatLng(6.679, -1.568), // Petrosol station 1
+      LatLng(6.684, -1.574), // Petrosol station 2
+    ],
+  ];
+
   // Initialize the selection state for each item
   List<bool> isSelectedList;
   int? _selectedStationIndex;
@@ -34,59 +56,177 @@ class _HomeScreenState extends State<HomeScreen> {
   String _selectedFuelType = "petrol";
   double? _litres;
   double? _price;
-  int? selectedButtonIndex;
 
-  void _onStationTap(int index) {
+  void _onStationTap(int index) async {
     setState(() {
       _selectedStationIndex = index;
-      fetchLitreAndPrice();
     });
+    await _fetchFuelStations(index);
+    await _zoomToClosestStation(index);
+
+    bool confirm = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white.withOpacity(0.3),
+          title: Text('Confirm Navigation'),
+          content: Text('Do you want to navigate to the next page?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirm) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChoicePage(
+            selectedStationName: fuelStations[index],
+          ),
+        ),
+      );
+    }
   }
 
   _HomeScreenState() : isSelectedList = List.generate(4, (index) => index == 0);
-  int? isSelectedFuel;
+
   @override
   void initState() {
     super.initState();
-    fetchLitreAndPrice();
+    _getCurrentLocation();
+    _fetchFuelStations(0); // Fetch Total stations initially
   }
 
-  Future<void> fetchLitreAndPrice() async {
-    if (_selectedStationIndex == null) return;
+  Future<void> _getCurrentLocation() async {
+    LocationData currentLocation = await location.getLocation();
+    setState(() {
+      _initialPosition =
+          LatLng(currentLocation.latitude!, currentLocation.longitude!);
+    });
+  }
 
-    String stationId;
-    switch (_selectedStationIndex) {
+  Future<void> _fetchFuelStations(int index) async {
+    setState(() {
+      _markers.clear();
+      BitmapDescriptor markerColor;
+      switch (index) {
+        case 0:
+          markerColor =
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
+          break;
+        case 1:
+          markerColor =
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
+          break;
+        case 2:
+          markerColor =
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
+          break;
+        case 3:
+          markerColor =
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet);
+          break;
+        default:
+          markerColor = BitmapDescriptor.defaultMarker;
+      }
+
+      for (var station in fuelStationsCoordinates[index]) {
+        _markers.add(
+          Marker(
+            markerId: MarkerId(station.toString()),
+            position: station,
+            infoWindow: InfoWindow(title: fuelStations[index]),
+            icon: markerColor,
+          ),
+        );
+      }
+    });
+  }
+
+  Future<void> _zoomToClosestStation(int index) async {
+    if (_markers.isEmpty) return;
+
+    LatLng userLocation = _initialPosition;
+    Marker? closestMarker;
+    double closestDistance = double.infinity;
+
+    // Determine initial marker color based on selected index
+    BitmapDescriptor initialMarkerColor;
+    switch (index) {
       case 0:
-        stationId = "fuel_station_id_1"; // replace with actual station IDs
+        initialMarkerColor =
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
         break;
       case 1:
-        stationId = "fuel_station_id_2"; // replace with actual station IDs
+        initialMarkerColor =
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
         break;
       case 2:
-        stationId = "fuel_station_id_3"; // replace with actual station IDs
+        initialMarkerColor =
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
         break;
       case 3:
-        stationId = "fuel_station_id_4"; // replace with actual station IDs
+        initialMarkerColor =
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet);
         break;
       default:
-        stationId = "fuel_station_id_1";
+        initialMarkerColor = BitmapDescriptor.defaultMarker;
     }
 
-    try {
-      DocumentSnapshot doc = await FirebaseFirestore.instance
-          .collection('fuel_prices')
-          .doc(stationId)
-          .get();
-      var fuelData = doc['fuels'][_selectedFuelType];
+    for (Marker marker in _markers) {
+      double distance = _calculateDistance(
+        userLocation.latitude,
+        userLocation.longitude,
+        marker.position.latitude,
+        marker.position.longitude,
+      );
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestMarker = marker;
+      }
+    }
+
+    if (closestMarker != null) {
       setState(() {
-        _litres = fuelData['litres'];
-        _price = fuelData['price'];
+        _markers = _markers.map((marker) {
+          if (marker.markerId == closestMarker!.markerId) {
+            return marker.copyWith(
+              iconParam: initialMarkerColor, // Set initial marker color here
+            );
+          }
+          return marker;
+        }).toSet();
       });
-    } catch (e) {
-      print('Error fetching data: $e');
+
+      await mapController?.animateCamera(CameraUpdate.newLatLngZoom(
+        closestMarker.position,
+        18.0,
+      ));
     }
   }
-  //button widget
+
+  double _calculateDistance(
+      double lat1, double lon1, double lat2, double lon2) {
+    var p = 0.017453292519943295; // Pi/180
+    var a = 0.5 -
+        cos((lat2 - lat1) * p) / 2 +
+        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a)); // 2 * R; R = 6371 km
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,11 +239,15 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: _initialPosition, // Coordinates for New York City
+                target: _initialPosition,
                 zoom: 15.0,
               ),
               myLocationButtonEnabled: false,
               zoomControlsEnabled: false,
+              markers: _markers,
+              onMapCreated: (GoogleMapController controller) {
+                mapController = controller;
+              },
             ),
             Padding(
               padding: EdgeInsets.all(16.0.w),
@@ -142,15 +286,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             isSelectedList[i] = i == index;
                           }
                           _onStationTap(index);
-                          fetchLitreAndPrice();
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChoicePage(
-                                        selectedStationName:
-                                            fuelStations[index],
-                                      )));
                         });
                       },
                       child: Container(

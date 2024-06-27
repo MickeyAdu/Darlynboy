@@ -130,7 +130,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 'assets/total_station.jpg';
 
             return Container(
-              color: KColors.primaryGrey,
+              color: KColors.primaryWhite,
               child: Column(
                 children: [
                   Container(
@@ -148,31 +148,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         fit: BoxFit.fitWidth,
                       ),
                     ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back_ios_new_outlined,
-                            color: KColors.primaryBlack,
-                          ),
-                        ),
-                        Text(
-                          "Details",
-                          style: textTheme.bodyLarge!.copyWith(
-                              color: KColors.primaryBlack, fontSize: 25),
-                        ),
-                        Text(
-                          "",
-                          style: textTheme.bodyLarge!.copyWith(
-                              color: KColors.primaryWhite, fontSize: 25),
-                        ),
-                      ],
-                    ),
                   ),
                   Padding(
                     padding:
@@ -180,27 +155,30 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            IconButton(
-                              style: IconButton.styleFrom(
-                                backgroundColor: KColors.secondaryGreen,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(9.r),
+                        Padding(
+                          padding: EdgeInsets.only(top: 8.0.h),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                style: IconButton.styleFrom(
+                                  backgroundColor: KColors.secondaryOrange,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(9.r),
+                                  ),
+                                ),
+                                onPressed: () {},
+                                icon: Icon(
+                                  Maki.fuel,
+                                  size: 30.sp,
+                                  color: KColors.primaryWhite,
                                 ),
                               ),
-                              onPressed: () {},
-                              icon: Icon(
-                                Maki.fuel,
-                                size: 30.sp,
-                                color: KColors.primaryWhite,
-                              ),
-                            ),
-                            Text(
-                              " $fuelStationName",
-                              style: textTheme.bodyLarge,
-                            )
-                          ],
+                              Text(
+                                "   ${fuelStationName}",
+                                style: textTheme.bodyLarge,
+                              )
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.h),
@@ -208,7 +186,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             children: [
                               Icon(
                                 Icons.location_on_outlined,
-                                color: KColors.secondaryGreen,
+                                color: KColors.secondaryOrange,
                                 size: 25.sp,
                               ),
                               Text(
@@ -241,7 +219,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 20.h, bottom: 10.h),
+                          padding: EdgeInsets.only(top: 40.h, bottom: 15.h),
                           child:
                               Text("Description", style: textTheme.bodyLarge!),
                         ),
@@ -250,7 +228,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           style: textTheme.bodySmall,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 16.0.h),
+                          padding: EdgeInsets.only(top: 30.0.h),
                           child: CustomElevatedButton(
                             label: "Proceed to Payment",
                             onTap: () => navigateToPayPage(context),

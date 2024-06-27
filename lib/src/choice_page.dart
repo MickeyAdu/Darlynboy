@@ -173,6 +173,7 @@ class _ChoicePageState extends State<ChoicePage> {
 
     return SafeArea(
       child: Scaffold(
+        // backgroundColor: KColors.primaryBlack,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(top: 5.0),
@@ -180,92 +181,101 @@ class _ChoicePageState extends State<ChoicePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16.h),
-                  padding: EdgeInsets.all(10.w),
-                  height: 120.h,
-                  width: mediaQuery.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.r),
-                    color: KColors.primaryGrey,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Maki.fuel,
-                            size: 35.sp,
-                          ),
-                          Text(
-                            widget.selectedStationName,
-                            style: textTheme.bodyLarge,
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0.h),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16.h),
+                    padding: EdgeInsets.all(10.w),
+                    height: 120.h,
+                    width: mediaQuery.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.r),
+                      color: const Color(0xFFFFA54B),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.location_on_outlined,
-                                  size: 35.sp,
-                                ),
-                                _isEditing
-                                    ? Container(
-                                        decoration: const BoxDecoration(
-                                            // borderRadius:
-                                            //     // BorderRadius.circular(10.0),
-                                            ),
-                                        width: 230.sp,
-                                        child: TextField(
-                                          controller: _textController,
-                                          style: textTheme.bodyLarge!.copyWith(
-                                              fontWeight: FontWeight.normal),
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              // borderSide: const BorderSide(color: Colors.greenAccent),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                              borderSide: BorderSide(
-                                                  color:
-                                                      KColors.secondaryGreen),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : Text(
-                                        " ${_textController.text} ",
-                                        style: textTheme.bodyLarge!.copyWith(
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                              ],
+                            Icon(
+                              Maki.fuel,
+                              size: 35.sp,
                             ),
-                            Row(
-                              children: [
-                                IconButton(
-                                  onPressed: _toggleEditing,
-                                  icon: Icon(
-                                      _isEditing
-                                          ? Icons.check
-                                          : Icons.edit_outlined,
-                                      size: 25.sp),
-                                ),
-                              ],
+                            Text(
+                              " ${widget.selectedStationName} ",
+                              style: textTheme.bodyLarge,
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on_outlined,
+                                    size: 35.sp,
+                                  ),
+                                  _isEditing
+                                      ? Container(
+                                          decoration: const BoxDecoration(
+                                              // borderRadius:
+                                              //     // BorderRadius.circular(10.0),
+                                              ),
+                                          width: 230.sp,
+                                          child: TextField(
+                                            controller: _textController,
+                                            style: textTheme.bodyLarge!
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                            decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.all(8.w),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10.0.r),
+                                                // borderSide: const BorderSide(color: Colors.greenAccent),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10.0.r),
+                                                borderSide: BorderSide(
+                                                    color:
+                                                        KColors.primaryBlack),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : Text(
+                                          " ${_textController.text} ",
+                                          style: textTheme.bodyLarge!.copyWith(
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: _toggleEditing,
+                                    icon: Icon(
+                                        _isEditing
+                                            ? Icons.check
+                                            : Icons.edit_outlined,
+                                        size: 25.sp),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -277,7 +287,7 @@ class _ChoicePageState extends State<ChoicePage> {
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: KColors.primaryGrey,
+                      color: const Color(0xFFFFA54B),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -300,8 +310,8 @@ class _ChoicePageState extends State<ChoicePage> {
                               child: CustomFuelContainer(
                                 text: "Petrol",
                                 color: isSelectedFuel == 0
-                                    ? KColors.secondaryGreen
-                                    : Colors.grey.shade200,
+                                    ? KColors.primaryOrange
+                                    : KColors.gainsBoro,
                                 textColor: isSelectedFuel == 0
                                     ? KColors.primaryWhite
                                     : KColors.primaryBlack,
@@ -321,8 +331,8 @@ class _ChoicePageState extends State<ChoicePage> {
                               child: CustomFuelContainer(
                                 text: "Diesel",
                                 color: isSelectedFuel == 1
-                                    ? KColors.secondaryGreen
-                                    : Colors.grey.shade200,
+                                    ? KColors.primaryOrange
+                                    : KColors.gainsBoro,
                                 textColor: isSelectedFuel == 1
                                     ? KColors.primaryWhite
                                     : KColors.primaryBlack,
@@ -342,8 +352,8 @@ class _ChoicePageState extends State<ChoicePage> {
                               child: CustomFuelContainer(
                                 text: "Gas",
                                 color: isSelectedFuel == 2
-                                    ? KColors.secondaryGreen
-                                    : Colors.grey.shade200,
+                                    ? KColors.primaryOrange
+                                    : KColors.gainsBoro,
                                 textColor: isSelectedFuel == 2
                                     ? KColors.primaryWhite
                                     : KColors.primaryBlack,
@@ -368,7 +378,7 @@ class _ChoicePageState extends State<ChoicePage> {
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: KColors.primaryGrey,
+                      color: const Color(0xFFFFA54B),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -386,7 +396,7 @@ class _ChoicePageState extends State<ChoicePage> {
                           width: mediaQuery.width,
                           height: 50.h,
                           decoration: BoxDecoration(
-                            color: KColors.primaryWhite,
+                            color: KColors.gainsBoro,
                             borderRadius: BorderRadius.horizontal(
                               left: Radius.circular(40.r),
                               right: Radius.circular(40.r),
@@ -433,7 +443,7 @@ class _ChoicePageState extends State<ChoicePage> {
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: KColors.primaryGrey,
+                      color: const Color(0xFFFFA54B),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -451,7 +461,7 @@ class _ChoicePageState extends State<ChoicePage> {
                           width: mediaQuery.width,
                           height: 50.h,
                           decoration: BoxDecoration(
-                            color: KColors.primaryWhite,
+                            color: KColors.gainsBoro,
                             borderRadius: BorderRadius.horizontal(
                               left: Radius.circular(40.r),
                               right: Radius.circular(40.r),
@@ -516,75 +526,75 @@ class _ChoicePageState extends State<ChoicePage> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16.h),
-                  padding: EdgeInsets.all(10.w),
-                  height: 100.h,
-                  width: mediaQuery.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.r),
-                    color: KColors.primaryWhite,
-                  ),
-                  child: Container(
-                    margin: EdgeInsets.all(6.w),
-                    padding: EdgeInsets.all(10.w),
-                    width: mediaQuery.width,
-                    decoration: BoxDecoration(
-                      color: KColors.primaryGrey,
-                      borderRadius: BorderRadius.horizontal(
-                        left: Radius.circular(20.r),
-                        right: Radius.circular(20.r),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.av_timer_outlined,
-                              size: 25.sp,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 6.w),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Delivery Time ",
-                                      style: textTheme.bodySmall),
-                                  Text("20m 35s",
-                                      style: textTheme.bodyLarge!.copyWith(
-                                          color: KColors.secondaryGreen)),
-                                ],
-                              ),
-                            ),
-                            VerticalDivider(
-                              color: KColors.primaryBlack,
-                              thickness: 2,
-                              width: 10.w,
-                            ),
-                            Icon(
-                              Icons.location_on_outlined,
-                              size: 25.sp,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 6.w),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Distance", style: textTheme.bodySmall),
-                                  Text("07km 20m",
-                                      style: textTheme.bodyLarge!.copyWith(
-                                          color: KColors.secondaryGreen)),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.symmetric(horizontal: 16.h),
+                //   padding: EdgeInsets.all(10.w),
+                //   height: 100.h,
+                //   width: mediaQuery.width,
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(20.r),
+                //     color: KColors.primaryWhite,
+                //   ),
+                //   child: Container(
+                //     margin: EdgeInsets.all(6.w),
+                //     padding: EdgeInsets.all(10.w),
+                //     width: mediaQuery.width,
+                //     decoration: BoxDecoration(
+                //       color: KColors.primaryGrey,
+                //       borderRadius: BorderRadius.horizontal(
+                //         left: Radius.circular(20.r),
+                //         right: Radius.circular(20.r),
+                //       ),
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Row(
+                //           children: [
+                //             Icon(
+                //               Icons.av_timer_outlined,
+                //               size: 25.sp,
+                //             ),
+                //             Padding(
+                //               padding: EdgeInsets.only(left: 6.w),
+                //               child: Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   Text("Delivery Time ",
+                //                       style: textTheme.bodySmall),
+                //                   Text("20m 35s",
+                //                       style: textTheme.bodyLarge!.copyWith(
+                //                           color: KColors.secondaryGreen)),
+                //                 ],
+                //               ),
+                //             ),
+                //             VerticalDivider(
+                //               color: KColors.primaryBlack,
+                //               thickness: 2,
+                //               width: 10.w,
+                //             ),
+                //             Icon(
+                //               Icons.location_on_outlined,
+                //               size: 25.sp,
+                //             ),
+                //             Padding(
+                //               padding: EdgeInsets.only(left: 6.w),
+                //               child: Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   Text("Distance", style: textTheme.bodySmall),
+                //                   Text("07km 20m",
+                //                       style: textTheme.bodyLarge!.copyWith(
+                //                           color: KColors.secondaryGreen)),
+                //                 ],
+                //               ),
+                //             )
+                //           ],
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 Padding(
                   padding: EdgeInsets.only(
                       top: 4.h, left: 20.w, right: 20.w, bottom: 4.h),

@@ -58,7 +58,6 @@ class _MapScreenState extends State<MapScreen> {
       setState(() {
         _currentPosition = LatLng(position.latitude, position.longitude);
         _addMarker(_currentPosition!, "Current Location", true);
-        _saveLocationToFirestore(_currentPosition!);
       });
     } catch (e) {
       // Handle location fetch error
@@ -115,13 +114,6 @@ class _MapScreenState extends State<MapScreen> {
           ? BitmapDescriptor.defaultMarker
           : BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
     ));
-  }
-
-  void _saveLocationToFirestore(LatLng position) {
-    _firestore.collection('locations').add({
-      'latitude': position.latitude,
-      'longitude': position.longitude,
-    });
   }
 
   void _drawPolyline() {
