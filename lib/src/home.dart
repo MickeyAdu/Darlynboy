@@ -84,7 +84,7 @@ class _HomeScreenState extends State<Home> {
     } else if (currentPage == DrawerSections.settings) {
       container = SettingPage();
     } else if (currentPage == DrawerSections.dashboard) {
-      container = DashboardPage();
+      container = DashboardScreen();
     } else if (currentPage == DrawerSections.payment) {
       container = PaymentPage();
     } else if (currentPage == DrawerSections.support) {
@@ -99,19 +99,18 @@ class _HomeScreenState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         // leading: Drawer(),
-        backgroundColor: KColors.primaryGrey,
         title: Text(
           'Welcome $_username',
           style: TextStyle(
-              color: KColors.primaryBlack,
+              color: Theme.of(context).colorScheme.primary,
               fontFamily: 'Poppins',
               fontSize: 22,
               fontWeight: FontWeight.w300),
         ),
         actions: [
           IconButton(
-            color: KColors.primaryBlack,
-            icon: Icon(Icons.notifications),
+            color: Theme.of(context).colorScheme.primary,
+            icon: const Icon(Icons.notifications),
             onPressed: () {
               // Navigator.push(
               //     context, MaterialPageRoute(builder: (context) => NotificationPage()));
@@ -153,7 +152,10 @@ class _HomeScreenState extends State<Home> {
                     onPressed: () => {
                           _logOut(),
                         },
-                    child: const Text('Log Out'))
+                    child: const Text('Log Out')),
+                SizedBox(
+                  height: 2.h,
+                ),
               ],
             ),
           ),
@@ -184,12 +186,12 @@ class _HomeScreenState extends State<Home> {
                 text: 'History',
               ),
               GButton(
-                icon: Icons.book_online_outlined,
-                text: 'Others',
+                icon: Icons.settings_accessibility_outlined,
+                text: 'Settings',
               ),
               GButton(
-                icon: Icons.settings,
-                text: 'Settings',
+                icon: Icons.menu_outlined,
+                text: 'Others',
               ),
             ],
           ),
@@ -247,7 +249,7 @@ class _HomeScreenState extends State<Home> {
               currentPage == DrawerSections.payment ? true : false),
           menuItem(7, "About", Icons.query_stats,
               currentPage == DrawerSections.about ? true : false),
-          menuItem(8, "Log Out", Icons.logout,
+          menuItem(8, "Orders", Icons.menu_open_outlined,
               currentPage == DrawerSections.logout ? true : false),
         ],
       ),
@@ -293,7 +295,7 @@ class _HomeScreenState extends State<Home> {
                 child: Icon(
                   icon,
                   size: 20,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
               Expanded(
@@ -301,7 +303,7 @@ class _HomeScreenState extends State<Home> {
                   child: Text(
                     title,
                     style: TextStyle(
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.primary,
                         fontSize: 16,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold),

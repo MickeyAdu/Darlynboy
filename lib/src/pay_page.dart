@@ -7,6 +7,8 @@ import 'package:mic_fuel/src/live_tracking_methods.dart';
 import 'package:mic_fuel/src/transaction/api_key/api_key.dart';
 import 'package:mic_fuel/src/transaction/paystack/paystack_auth_respose.dart';
 import 'package:http/http.dart' as http;
+import 'package:mic_fuel/themes/theme_notifier.dart';
+import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:mic_fuel/src/transaction/transaction.dart' as my_transaction;
 
@@ -91,7 +93,10 @@ class _PayPageState extends State<PayPage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider =
+        Provider.of<ThemeProvider>(context, listen: false);
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),

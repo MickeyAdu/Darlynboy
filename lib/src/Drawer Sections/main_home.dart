@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   GoogleMapController? mapController;
   Location location = Location();
-  LatLng _initialPosition = LatLng(6.6731, -1.5637);
+  LatLng _initialPosition = const LatLng(6.6731, -1.5637);
   Set<Marker> _markers = {};
 
   // List of fuel stations
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // Fixed coordinates for different fuel stations
   final List<List<LatLng>> fuelStationsCoordinates = [
     [
-      LatLng(6.683, -1.565), // Total station 1
+      const LatLng(6.683, -1.565), // Total station 1
       LatLng(6.693, -1.575), // Total station 2
     ],
     [
@@ -58,36 +58,53 @@ class _HomeScreenState extends State<HomeScreen> {
   double? _price;
 
   void _onStationTap(int index) async {
+    if (!mounted) return;
+
     setState(() {
       _selectedStationIndex = index;
     });
+
     await _fetchFuelStations(index);
     await _zoomToClosestStation(index);
 
-    bool confirm = await showDialog(
+    if (!mounted) return;
+
+    bool confirm = await showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white.withOpacity(0.3),
-          title: Text('Confirm Navigation'),
-          content: Text('Do you want to navigate to the next page?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-              child: Text('OK'),
-            ),
-          ],
+        return Container(
+          padding: EdgeInsets.all(16.0),
+          color: Colors.white.withOpacity(0.9), // Adjust the opacity as needed
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                title: Text('Confirm Navigation'),
+                subtitle: Text('Do you want to navigate to the next page?'),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    },
+                    child: Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
+                    child: Text('OK'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         );
       },
     );
+
+    if (!mounted) return;
 
     if (confirm) {
       Navigator.push(
@@ -107,15 +124,23 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _getCurrentLocation();
+    fetchLocation();
     _fetchFuelStations(0); // Fetch Total stations initially
   }
 
-  Future<void> _getCurrentLocation() async {
+  Future<void> fetchLocation() async {
+    var locationData = await _getCurrentLocation();
+    print(
+        "Current location: ${locationData.latitude}, ${locationData.longitude}");
+  }
+
+  Future<LocationData> _getCurrentLocation() async {
     LocationData currentLocation = await location.getLocation();
     setState(() {
       _initialPosition =
           LatLng(currentLocation.latitude!, currentLocation.longitude!);
     });
+    return currentLocation;
   }
 
   Future<void> _fetchFuelStations(int index) async {
@@ -158,6 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _zoomToClosestStation(int index) async {
     if (_markers.isEmpty) return;
+    fetchLocation();
 
     LatLng userLocation = _initialPosition;
     Marker? closestMarker;
@@ -232,9 +258,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     var mediaQuery = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.grey.shade100,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
             GoogleMap(
@@ -250,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             Padding(
-              padding: EdgeInsets.all(16.0.w),
+              padding: EdgeInsets.all(16.w),
               child: CircleAvatar(
                 radius: 30.r,
                 backgroundColor: KColors.primaryWhite,

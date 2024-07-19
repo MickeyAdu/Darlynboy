@@ -3,11 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mic_fuel/screens/first_onboarding_screen.dart';
 import 'package:mic_fuel/themes/colors.dart';
+import 'package:mic_fuel/themes/theme_notifier.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart'; // Added import for provider
+
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool themeBool = prefs.getBool("isDark") ?? false;
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(isDark: themeBool),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,60 +28,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 717),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: KColors.primaryWhite,
-          textTheme: const TextTheme(
-            bodyLarge: TextStyle(
-              color: KColors.primaryBlack,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Poppins",
-            ),
-            bodyMedium: TextStyle(
-              color: KColors.primaryBlack,
-              fontFamily: "Poppins",
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-            bodySmall: TextStyle(
-                color: KColors.primaryBlack,
-                fontFamily: "Poppins",
-                fontSize: 14,
-                fontWeight: FontWeight.bold),
-          ),
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData(
-          scaffoldBackgroundColor: KColors.primaryBlack,
-          textTheme: const TextTheme(
-            bodyLarge: TextStyle(
-              color: KColors.primaryWhite,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Poppins",
-            ),
-            bodyMedium: TextStyle(
-              color: KColors.primaryWhite,
-              fontFamily: "Poppins",
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-            bodySmall: TextStyle(
-                color: KColors.primaryWhite,
-                fontFamily: "Poppins",
-                fontSize: 12,
-                fontWeight: FontWeight.bold),
-          ),
-          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        // themeMode: ,
-        home: const FirstOnboardingScreen(),
-      ),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, _) {
+        return ScreenUtilInit(
+          designSize: const Size(360, 717),
+          builder: (context, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: themeProvider.getTheme,
+              home: const FirstOnboardingScreen(),
+            );
+          },
+        );
+      },
     );
   }
 }

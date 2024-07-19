@@ -1,85 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:mic_fuel/themes/theme_notifier.dart';
+import 'package:provider/provider.dart';
 
-class SettingsPage extends StatelessWidget {
+import '../../themes/dark_theme.dart';
+
+class SettingPage extends StatefulWidget {
+  const SettingPage({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text("Settings"),
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(16.0),
-        children: [
-          ListTile(
-            title: Text("Account", style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          ListTile(
-            title: Text("Change password"),
-            onTap: () {},
-          ),
-          ListTile(
-            title: Text("Content settings"),
-            onTap: () {},
-          ),
-          ListTile(
-            title: Text("Social"),
-            onTap: () {},
-          ),
-          ListTile(
-            title: Text("Language"),
-            onTap: () {},
-          ),
-          ListTile(
-            title: Text("Privacy and security"),
-            onTap: () {},
-          ),
-          SizedBox(height: 20),
-          ListTile(
-            title: Text("Notifications", style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          SwitchListTile(
-            title: Text("New for you"),
-            value: true,
-            onChanged: (bool value) {},
-          ),
-          SwitchListTile(
-            title: Text("Account activity"),
-            value: true,
-            onChanged: (bool value) {},
-          ),
-          SwitchListTile(
-            title: Text("Opportunity"),
-            value: false,
-            onChanged: (bool value) {},
-          ),
-          SizedBox(height: 20),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                // Sign out logic
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.black,
-                side: BorderSide(color: Colors.grey),
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-              ),
-              child: Text("SIGN OUT"),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  State<SettingPage> createState() => _SettingPageState();
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: SettingsPage(),
-  ));
+class _SettingPageState extends State<SettingPage> {
+  @override
+  Widget build(BuildContext context) {
+    ThemeProvider themeProvider =
+        Provider.of<ThemeProvider>(context, listen: false);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Settings"),
+      ),
+      body: Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 12),
+                  child: Text(
+                    "Dark mode",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    themeProvider.changeTheme();
+                    setState(() {});
+                  },
+                  icon: themeProvider.getTheme == darkTheme
+                      ? const Icon(Icons.dark_mode)
+                      : const Icon(Icons.light_mode),
+                )
+                // Switch.adaptive(
+                //     activeColor: Colors.grey,
+                //     value: themeProvider.getTheme == darkTheme,
+                //     onChanged: (value) {
+                //       themeProvider.changeTheme();
+                //     })
+              ],
+            ),
+          ],
+        );
+      }),
+    );
+  }
 }

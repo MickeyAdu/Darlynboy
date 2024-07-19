@@ -10,7 +10,9 @@ import 'package:mic_fuel/src/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mic_fuel/themes/colors.dart';
+import 'package:mic_fuel/themes/theme_notifier.dart';
 import 'package:mic_fuel/widgets/custom_password_textfield.dart';
+import 'package:provider/provider.dart';
 import '../widgets/custom_elevated_button.dart';
 import '../widgets/custom_textfield.dart';
 
@@ -51,10 +53,13 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider =
+        Provider.of<ThemeProvider>(context, listen: false);
     var textTheme = Theme.of(context).textTheme;
     var mediaQuery = MediaQuery.sizeOf(context);
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Column(
           children: [
             Expanded(
@@ -93,7 +98,7 @@ class _LogInState extends State<LogIn> {
                       child: Container(
                         padding: EdgeInsets.all(10.w),
                         decoration: BoxDecoration(
-                          color: KColors.primaryWhite,
+                          color: Theme.of(context).colorScheme.surface,
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(30.r),
                             topLeft: Radius.circular(30.r),
@@ -108,6 +113,8 @@ class _LogInState extends State<LogIn> {
                                 SizedBox(height: 10.0.h),
                                 Container(
                                   decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: TextField(
@@ -116,14 +123,16 @@ class _LogInState extends State<LogIn> {
                                       border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
-                                        borderSide:
-                                            BorderSide(color: Colors.amber),
+                                        borderSide: BorderSide(
+                                            color:
+                                                Color.fromRGBO(255, 58, 16, 1)),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
-                                        borderSide:
-                                            BorderSide(color: Colors.amber),
+                                        borderSide: BorderSide(
+                                            color:
+                                                Color.fromRGBO(255, 58, 16, 1)),
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderRadius:
@@ -150,6 +159,8 @@ class _LogInState extends State<LogIn> {
 
                                 Container(
                                   decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: TextField(

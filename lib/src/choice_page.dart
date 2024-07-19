@@ -87,9 +87,9 @@ class _ChoicePageState extends State<ChoicePage> {
 
   Future<void> _sendOrderToFirestore() async {
     User? user = FirebaseAuth.instance.currentUser;
-    if (_selectedFuelType.isEmpty ||
-        _selectedQuantity == null ||
-        _price == null ||
+    if (_selectedFuelType.isEmpty &&
+        _selectedQuantity == null &&
+        _price == null &&
         _textController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -287,7 +287,7 @@ class _ChoicePageState extends State<ChoicePage> {
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: const Color(0xFFFFA54B),
+                      color: KColors.primaryOrange,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -420,7 +420,9 @@ class _ChoicePageState extends State<ChoicePage> {
                                     width: 10.w,
                                   ),
                                   Text(
-                                    _price != null ? "\$$_price" : "Loading...",
+                                    _price != null
+                                        ? "\GHS $_price"
+                                        : "Loading...",
                                     style: textTheme.bodyMedium!
                                         .copyWith(color: KColors.primaryBlack),
                                   ),

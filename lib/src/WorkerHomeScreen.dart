@@ -86,7 +86,7 @@ class _HomeWorkerScreenState extends State<HomeWorker> {
     } else if (currentPage == DrawerSections.settings) {
       container = SettingPage();
     } else if (currentPage == DrawerSections.dashboard) {
-      container = DashboardPage();
+      container = DashboardScreen();
     } else if (currentPage == DrawerSections.payment) {
       container = PaymentPage();
     } else if (currentPage == DrawerSections.support) {

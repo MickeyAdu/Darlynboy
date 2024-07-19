@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+
+import '../../themes/theme_notifier.dart';
 
 class MyHeaderDrawer extends StatefulWidget {
   const MyHeaderDrawer({super.key});
@@ -111,7 +114,7 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
             style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 22,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.normal,
             ),
           ),

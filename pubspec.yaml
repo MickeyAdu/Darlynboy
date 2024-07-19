@@ -61,6 +61,9 @@ dependencies:
   firebase_storage: ^11.7.7
   image_picker: ^1.1.2
   uuid: ^4.4.0
+  font_awesome_flutter: ^10.7.0
+  shared_preferences: ^2.2.3
+  provider: ^6.1.2
  
 
 dev_dependencies:
@@ -107,6 +110,9 @@ flutter:
     - family: Poppins
       fonts:
         - asset: fonts/Poppins-SemiBold.ttf
+       
+
+
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

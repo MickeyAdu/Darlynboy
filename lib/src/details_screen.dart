@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/maki_icons.dart';
 import 'package:mic_fuel/src/pay_page.dart';
 import 'package:mic_fuel/themes/colors.dart';
+import 'package:mic_fuel/themes/theme_notifier.dart';
 import 'package:mic_fuel/widgets/custom_elevated_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});
@@ -103,9 +105,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     var mediaQuery = MediaQuery.sizeOf(context);
+    ThemeProvider themeProvider =
+        Provider.of<ThemeProvider>(context, listen: false);
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: FutureBuilder<Map<String, dynamic>>(
           future: _detailsFuture,
           builder: (context, snapshot) {
@@ -130,7 +135,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 'assets/total_station.jpg';
 
             return Container(
-              color: KColors.primaryWhite,
+              color: Theme.of(context).colorScheme.primary,
               child: Column(
                 children: [
                   Container(

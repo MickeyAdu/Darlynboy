@@ -1,134 +1,149 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:mic_fuel/src/pay_page.dart';
-
-// class PaymentPage extends StatefulWidget {
-//   const PaymentPage({super.key});
-
-//   @override
-//   State<PaymentPage> createState() => _PaymentPageState();
-// }
-
-// class _PaymentPageState extends State<PaymentPage> {
-//   final _formKey = GlobalKey<FormState>();
-//   final amountController = TextEditingController();
-//   final referenceController = TextEditingController();
-//   final emailController = TextEditingController();
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text(
-//           "Momo Payment with Paystack",
-//           style: TextStyle(
-//               fontFamily: 'Poppins', fontSize: 21, fontWeight: FontWeight.w300),
-//         ),
-//         elevation: 0,
-//       ),
-//       body: Form(
-//           key: _formKey,
-//           child: //Murie's styling of the payment UI
-//               Padding(
-//             padding:
-//                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-//             child: Column(
-//               children: [
-//                 TextFormField(
-//                   controller: amountController,
-//                   validator: (value) {
-//                     if (value!.isEmpty) {
-//                       return "required field is missing";
-//                     }
-//                     return null;
-//                   },
-//                   // validator: (value) =>
-//                   //     value!.isEmpty ? 'reqiured field is missing' : null,
-//                   decoration: const InputDecoration(
-//                     labelText: 'Amount',
-//                     hintText: 'Enter an amount',
-//                     border: OutlineInputBorder(
-//                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 10.h,
-//                 ),
-//                 TextFormField(
-//                   controller: referenceController,
-//                   validator: (value) {
-//                     if (value!.isEmpty) {
-//                       return "required field is missing";
-//                     }
-//                     return null;
-//                   },
-//                   decoration: const InputDecoration(
-//                     labelText: 'Reference',
-//                     hintText: 'Enter the reference',
-//                     border: OutlineInputBorder(
-//                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 10.h,
-//                 ),
-//                 TextFormField(
-//                   controller: emailController,
-//                   validator: (value) {
-//                     if (value!.isEmpty) {
-//                       return "required field is missing";
-//                     }
-//                     return null;
-//                   },
-//                   decoration: const InputDecoration(
-//                     labelText: 'Email',
-//                     hintText: 'Enter your email here',
-//                     border: OutlineInputBorder(
-//                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
-//                   ),
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(top: 20.0),
-//                   child: SizedBox(
-//                     width: double.infinity,
-//                     height: 45.0,
-//                     child: ElevatedButton(
-//                         onPressed: () {
-//                           if (!_formKey.currentState!.validate()) {
-//                             return;
-//                           }
-
-//                           Navigator.push(
-//                             context,
-//                             MaterialPageRoute(
-//                               builder: (context) => PayPage(
-//                                   amount: amountController.text,
-//                                   reference: referenceController.text,
-//                                   email: emailController.text),
-//                             ),
-//                           );
-//                         },
-//                         child: const Text("Proceed to make Payment")),
-//                   ),
-//                 )
-//               ],
-//             ),
-//           )),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class PaymentPage extends StatefulWidget {
-  const PaymentPage({super.key});
-
-  @override
-  State<PaymentPage> createState() => _PaymentPageState();
-}
-
-class _PaymentPageState extends State<PaymentPage> {
+class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Payments'),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: <Widget>[
+                    FaIcon(
+                      FontAwesomeIcons.creditCard,
+                      size: 50,
+                      color: Colors.blue,
+                    ),
+                    SizedBox(width: 20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Credit/Debit Card',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          '**** **** **** 1234',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                children: <Widget>[
+                  PaymentCard(
+                    title: 'Add Card',
+                    icon: FontAwesomeIcons.plusCircle,
+                    color: Colors.green,
+                    onTap: () {
+                      // Handle add card
+                    },
+                  ),
+                  PaymentCard(
+                    title: 'Transaction History',
+                    icon: FontAwesomeIcons.history,
+                    color: Colors.blue,
+                    onTap: () {
+                      // Handle transaction history
+                    },
+                  ),
+                  PaymentCard(
+                    title: 'Make Payment',
+                    icon: FontAwesomeIcons.moneyBillWave,
+                    color: Colors.orange,
+                    onTap: () {
+                      // Handle make payment
+                    },
+                  ),
+                  PaymentCard(
+                    title: 'Payment Settings',
+                    icon: FontAwesomeIcons.cogs,
+                    color: Colors.purple,
+                    onTap: () {
+                      // Handle payment settings
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PaymentCard extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
+
+  PaymentCard({
+    required this.title,
+    required this.icon,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        color: color,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              FaIcon(
+                icon,
+                size: 50,
+                color: Colors.white,
+              ),
+              SizedBox(height: 20),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

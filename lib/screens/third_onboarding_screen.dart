@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mic_fuel/screens/fourth_onboarding_screen.dart';
 import 'package:mic_fuel/themes/colors.dart';
+import 'package:mic_fuel/src/login.dart';
 
 class ThirdOnboardingScreen extends StatelessWidget {
   const ThirdOnboardingScreen({super.key});
@@ -10,40 +11,20 @@ class ThirdOnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
+    var mediaQuery = MediaQuery.sizeOf(context);
     return SafeArea(
-      child: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.topLeft,
-                colors: [
-              KColors.gainsBoro,
-              KColors.philliphineGrey,
-            ])),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Column(
+      child: Scaffold(
+        // backgroundColor: KColors.grey,
+        body: Padding(
+          padding: EdgeInsets.only(left: 8.w, right: 8.w),
+          child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios_new_outlined,
-                      size: 25.sp,
-                      color: KColors.primaryBlack.withOpacity(0.3),
-                    ),
-                  ),
-                ],
-              ),
               Padding(
-                padding: EdgeInsets.only(bottom: 50.h, top: 70.h),
+                padding: EdgeInsets.only(bottom: 80.h, top: 30.h),
                 child: Image.asset(
-                  "assets/time.png",
-                  height: 250.h,
+                  "assets/delivery.png",
+                  height: 300.h,
+                  width: mediaQuery.width,
                 ),
               ),
               Text(
@@ -53,17 +34,17 @@ class ThirdOnboardingScreen extends StatelessWidget {
               ),
               Text(
                 "Anytime, Anywhere",
-                style:
-                    textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+                style: textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.bold, color: KColors.primaryOrange),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 105.h, top: 70.h),
+                padding: EdgeInsets.only(bottom: 20.h, top: 145.h),
                 child: DotsIndicator(
                   dotsCount: 3,
                   position: 1,
                   decorator: DotsDecorator(
-                    color: KColors.daveyGrey,
-                    activeColor: KColors.primaryBlue,
+                    color: KColors.primaryGrey,
+                    activeColor: KColors.primaryOrange,
                     size: const Size.square(9.0),
                     activeSize: const Size(40.0, 9.0),
                     activeShape: RoundedRectangleBorder(
@@ -82,14 +63,27 @@ class ThirdOnboardingScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      "Next",
-                      style: textTheme.bodySmall,
-                    ),
-                    Icon(
-                      Icons.arrow_forward_outlined,
-                      color: KColors.primaryBlack,
-                      size: 25.sp,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        shape: const CircleBorder(
+                          side: BorderSide.none,
+                        ),
+                        fixedSize: Size(75.w, 50.h),
+                        backgroundColor: KColors.primaryOrange,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const FourthOnboardingScreen()));
+                      },
+                      child: Icon(
+                        Icons.arrow_forward_outlined,
+                        color: KColors.primaryWhite,
+                        size: 25.sp,
+                      ),
                     ),
                   ],
                 ),
