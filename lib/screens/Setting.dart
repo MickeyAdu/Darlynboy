@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mic_fuel/themes/theme_notifier.dart';
 import 'package:provider/provider.dart';
 
-import '../../themes/dark_theme.dart';
+import '../themes/colors.dart';
+import '../themes/dark_theme.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -18,7 +19,32 @@ class _SettingPageState extends State<SettingPage> {
         Provider.of<ThemeProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: Center(
+          child: Column(
+            mainAxisSize:
+                MainAxisSize.min, // Keeps the column size to its minimum height
+            children: [
+              Text(
+                'Settings',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 21,
+                  fontWeight: FontWeight.normal,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              const SizedBox(height: 4), // Spacing between text and underline
+              Container(
+                width: 40, // Width of the underline
+                height: 3, // Thickness of the underline
+                color: Theme.of(context)
+                    .colorScheme
+                    .primary, // Same color as the text
+              ),
+            ],
+          ),
+        ),
+        automaticallyImplyLeading: false, // Remove the back button
       ),
       body: Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
         return Column(
@@ -35,19 +61,14 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 IconButton(
                   onPressed: () {
-                    themeProvider.changeTheme();
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toggleTheme();
                     setState(() {});
                   },
                   icon: themeProvider.getTheme == darkTheme
                       ? const Icon(Icons.dark_mode)
                       : const Icon(Icons.light_mode),
                 )
-                // Switch.adaptive(
-                //     activeColor: Colors.grey,
-                //     value: themeProvider.getTheme == darkTheme,
-                //     onChanged: (value) {
-                //       themeProvider.changeTheme();
-                //     })
               ],
             ),
           ],

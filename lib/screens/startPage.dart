@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mic_fuel/screens/sign_in_screen.dart';
-import 'package:mic_fuel/screens/sign_up_screen.dart';
-import 'package:mic_fuel/src/home.dart';
-import 'package:mic_fuel/src/login.dart';
-import 'package:mic_fuel/src/quick.dart';
-import 'package:mic_fuel/src/signup.dart';
+import 'package:mic_fuel/screens/home.dart';
+import 'package:mic_fuel/screens/login.dart';
+import 'package:mic_fuel/screens/signup.dart';
 
 import '../themes/colors.dart';
 
@@ -33,7 +30,7 @@ Widget button(height, width, Color color, String label, Color textcolor,
           borderRadius: BorderRadius.circular(10.r),
           boxShadow: const [
             BoxShadow(
-                color: Color.fromARGB(255, 41, 41, 41),
+                color: Color.fromARGB(255, 73, 72, 72),
                 offset: Offset(0.0, 0.0),
                 spreadRadius: 1.0,
                 blurRadius: 6.0)
@@ -60,7 +57,7 @@ class _StartPage extends State<StartPage> {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [KColors.primaryOrange, KColors.primaryYellow])),
+              colors: [KColors.primaryOrange, KColors.primaryWhite])),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
@@ -111,9 +108,9 @@ class _StartPage extends State<StartPage> {
                   button(
                       phoneHeight,
                       phoneWidth,
-                      const Color(0xFF3E3939),
-                      "Continue as Guest",
                       KColors.primaryOrange,
+                      "Continue as Guest",
+                      const Color.fromARGB(255, 245, 245, 136),
                       const Home(),
                       context),
                 ],

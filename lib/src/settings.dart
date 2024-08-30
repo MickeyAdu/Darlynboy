@@ -35,7 +35,8 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 IconButton(
                   onPressed: () {
-                    themeProvider.changeTheme();
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toggleTheme();
                     setState(() {});
                   },
                   icon: themeProvider.getTheme == darkTheme

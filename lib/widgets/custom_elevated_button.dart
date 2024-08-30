@@ -20,16 +20,18 @@ class CustomElevatedButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
-          side: BorderSide(color: KColors.primaryBlack, width: .5.w),
+          side: BorderSide(color: KColors.primaryOrange, width: .5.w),
         ),
-        backgroundColor: KColors.primaryBlue,
+        backgroundColor: KColors.primaryOrange,
         fixedSize: Size(mediaQuery.width, 45),
       ),
       onPressed: onTap,
       child: Text(
         label,
-        style: textTheme.bodySmall!
-            .copyWith(color: KColors.primaryWhite, fontSize: 15),
+        style: textTheme.bodySmall!.copyWith(
+            color: Theme.of(context).colorScheme.primary,
+            fontSize: 21,
+            fontFamily: 'Poppins'),
       ),
     );
   }

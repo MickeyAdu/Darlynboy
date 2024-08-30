@@ -1,9 +1,8 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mic_fuel/screens/sign_in_screen.dart';
 import 'package:mic_fuel/screens/third_onboarding_screen.dart';
-import 'package:mic_fuel/src/startPage.dart';
+import 'package:mic_fuel/screens/startPage.dart';
 import 'package:mic_fuel/themes/colors.dart';
 
 class SecondOnboardingScreen extends StatelessWidget {
@@ -32,7 +31,7 @@ class SecondOnboardingScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 15.h, bottom: 20.h),
+                padding: EdgeInsets.only(top: 15.h, bottom: 60.h),
                 child: Image.asset("assets/second.png"),
               ),
               Text(
@@ -47,12 +46,12 @@ class SecondOnboardingScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold, color: KColors.primaryOrange),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 20.h, top: 40.h),
+                padding: EdgeInsets.only(bottom: 30.h, top: 40.h),
                 child: DotsIndicator(
                   dotsCount: 3,
                   position: 0,
                   decorator: DotsDecorator(
-                    color: KColors.primaryGrey,
+                    color: KColors.daveyGrey,
                     activeColor: KColors.primaryOrange,
                     size: const Size.square(9.0),
                     activeSize: const Size(40.0, 9.0),
@@ -70,7 +69,7 @@ class SecondOnboardingScreen extends StatelessWidget {
                       shape: const CircleBorder(
                         side: BorderSide.none,
                       ),
-                      fixedSize: Size(75.w, 50.h),
+                      fixedSize: Size(78.w, 50.h),
                       backgroundColor: KColors.primaryOrange,
                     ),
                     onPressed: () {

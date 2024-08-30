@@ -10,6 +10,8 @@ ThemeData lightTheme = ThemeData(
         titleTextStyle: TextStyle(
             color: Colors.black, fontSize: 21, fontFamily: 'Poppins')),
     colorScheme: ColorScheme.light(
-        surface: Colors.grey[300]!,
-        primary: Colors.black,
-        secondary: Colors.grey[50]!));
+      surface: Colors.blue,
+      primary: Colors.black,
+      secondary: Colors.grey[50]!,
+      tertiary: Colors.white,
+    ));

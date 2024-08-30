@@ -5,10 +5,6 @@ class ReferAndEarnPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Refer and Earn'),
-        centerTitle: true,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -67,7 +63,8 @@ class ReferAndEarnCard extends StatelessWidget {
   final Color color;
   final VoidCallback onTap;
 
-  ReferAndEarnCard({
+  const ReferAndEarnCard({
+    super.key,
     required this.title,
     required this.icon,
     required this.color,
@@ -91,14 +88,14 @@ class ReferAndEarnCard extends StatelessWidget {
               FaIcon(
                 icon,
                 size: 50,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primary,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 title,
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ],

@@ -4,30 +4,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/Dashboard.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/MyHeaderDrawer.dart';
-import 'package:mic_fuel/src/Drawer%20Sections/Setting.dart';
-import 'package:mic_fuel/src/Drawer%20Sections/Support.dart';
+import 'package:mic_fuel/screens/Setting.dart';
+import 'package:mic_fuel/screens/Support.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/about.dart';
-import 'package:mic_fuel/src/Drawer%20Sections/main_home.dart';
+import 'package:mic_fuel/screens/main_home.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:mic_fuel/src/Drawer%20Sections/logout.dart';
+import 'package:mic_fuel/src/Drawer%20Sections/Orders.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/offer.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/payment.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/referandearn.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/wallet.dart';
-import 'package:mic_fuel/src/history.dart';
-import 'package:mic_fuel/src/login.dart';
+import 'package:mic_fuel/screens/history.dart';
+import 'package:mic_fuel/src/live_tracking_methods.dart';
+import 'package:mic_fuel/screens/login.dart';
+import 'package:mic_fuel/screens/worker_home.dart';
 import 'package:mic_fuel/themes/colors.dart';
 
-import 'profile.dart';
+import '../src/profile.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomeWorker extends StatefulWidget {
+  const HomeWorker({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeWorkerScreenState createState() => _HomeWorkerScreenState();
 }
 
-class _HomeScreenState extends State<Home> {
+class _HomeWorkerScreenState extends State<HomeWorker> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var currentPage = DrawerSections.home;
   bool drawerOrNav = false;
@@ -99,18 +101,19 @@ class _HomeScreenState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         // leading: Drawer(),
+        backgroundColor: KColors.primaryGrey,
         title: Text(
           'Welcome $_username',
           style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: KColors.primaryBlack,
               fontFamily: 'Poppins',
               fontSize: 22,
               fontWeight: FontWeight.w300),
         ),
         actions: [
           IconButton(
-            color: Theme.of(context).colorScheme.primary,
-            icon: const Icon(Icons.notifications),
+            color: KColors.primaryBlack,
+            icon: Icon(Icons.notifications),
             onPressed: () {
               // Navigator.push(
               //     context, MaterialPageRoute(builder: (context) => NotificationPage()));
@@ -125,7 +128,7 @@ class _HomeScreenState extends State<Home> {
               builder: (context, selectedIndex, child) {
                 switch (selectedIndex) {
                   case 0:
-                    return HomeScreen(); // Replace with your home page widget
+                    return HomeScreenw(); // Replace with your home page widget
                   case 1:
                     return HistoryPage(); // Replace with your history page widget
                   case 2:
@@ -152,10 +155,7 @@ class _HomeScreenState extends State<Home> {
                     onPressed: () => {
                           _logOut(),
                         },
-                    child: const Text('Log Out')),
-                SizedBox(
-                  height: 2.h,
-                ),
+                    child: const Text('Log Out'))
               ],
             ),
           ),
@@ -186,12 +186,12 @@ class _HomeScreenState extends State<Home> {
                 text: 'History',
               ),
               GButton(
-                icon: Icons.settings_accessibility_outlined,
-                text: 'Settings',
+                icon: Icons.book_online_outlined,
+                text: 'Others',
               ),
               GButton(
-                icon: Icons.menu_outlined,
-                text: 'Others',
+                icon: Icons.settings,
+                text: 'Settings',
               ),
             ],
           ),
@@ -249,7 +249,7 @@ class _HomeScreenState extends State<Home> {
               currentPage == DrawerSections.payment ? true : false),
           menuItem(7, "About", Icons.query_stats,
               currentPage == DrawerSections.about ? true : false),
-          menuItem(8, "Orders", Icons.menu_open_outlined,
+          menuItem(8, "Log Out", Icons.logout,
               currentPage == DrawerSections.logout ? true : false),
         ],
       ),
@@ -295,7 +295,7 @@ class _HomeScreenState extends State<Home> {
                 child: Icon(
                   icon,
                   size: 20,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Colors.black,
                 ),
               ),
               Expanded(
@@ -303,7 +303,7 @@ class _HomeScreenState extends State<Home> {
                   child: Text(
                     title,
                     style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Colors.black,
                         fontSize: 16,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold),

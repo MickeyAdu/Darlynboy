@@ -4,13 +4,15 @@ import 'package:location/location.dart';
 import 'dart:math' show cos, sqrt, asin;
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Pin Locations and Find Closest',
       home: MapScreen1(),
     );
@@ -18,11 +20,13 @@ class MyApp extends StatelessWidget {
 }
 
 class MapScreen1 extends StatefulWidget {
+  const MapScreen1({super.key});
+
   @override
-  _MapScreen1State createState() => _MapScreen1State();
+  MapScreen1State createState() => MapScreen1State();
 }
 
-class _MapScreen1State extends State<MapScreen1> {
+class MapScreen1State extends State<MapScreen1> {
   GoogleMapController? mapController;
   List<Marker> markers = [];
   LatLng? userLocation;
@@ -36,32 +40,32 @@ class _MapScreen1State extends State<MapScreen1> {
   }
 
   Future<void> _getUserLocation() async {
-    Location location = new Location();
+    Location location = Location();
 
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-    LocationData _locationData;
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+    LocationData locationData;
 
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
         return;
       }
     }
 
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
         return;
       }
     }
 
-    _locationData = await location.getLocation();
+    locationData = await location.getLocation();
 
     setState(() {
-      userLocation = LatLng(_locationData.latitude!, _locationData.longitude!);
+      userLocation = LatLng(locationData.latitude!, locationData.longitude!);
     });
 
     mapController?.animateCamera(
@@ -105,7 +109,7 @@ class _MapScreen1State extends State<MapScreen1> {
   void _findClosestLocation() {
     if (markers.isEmpty || userLocation == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
               'Please add at least one marker and ensure user location is available.'),
         ),
@@ -136,13 +140,13 @@ class _MapScreen1State extends State<MapScreen1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pin Locations and Find Closest'),
+        title: const Text('Pin Locations and Find Closest'),
       ),
       body: Stack(
         children: [
           GoogleMap(
             onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
+            initialCameraPosition: const CameraPosition(
               target: initialLocation,
               zoom: 10.0,
             ),
@@ -154,7 +158,7 @@ class _MapScreen1State extends State<MapScreen1> {
             left: 20,
             child: ElevatedButton(
               onPressed: _findClosestLocation,
-              child: Text('Find Closest Location'),
+              child: const Text('Find Closest Location'),
             ),
           ),
         ],

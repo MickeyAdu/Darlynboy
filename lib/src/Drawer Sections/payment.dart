@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Payments'),
-        centerTitle: true,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -18,9 +15,9 @@ class PaymentPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
+              color: Theme.of(context).colorScheme.primary,
+              child: const Padding(
+                padding: EdgeInsets.all(16.0),
                 child: Row(
                   children: <Widget>[
                     FaIcon(
@@ -52,6 +49,7 @@ class PaymentPage extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 20),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -60,15 +58,15 @@ class PaymentPage extends StatelessWidget {
                 children: <Widget>[
                   PaymentCard(
                     title: 'Add Card',
-                    icon: FontAwesomeIcons.plusCircle,
+                    icon: FontAwesomeIcons.circlePlus,
                     color: Colors.green,
                     onTap: () {
                       // Handle add card
                     },
                   ),
                   PaymentCard(
-                    title: 'Transaction History',
-                    icon: FontAwesomeIcons.history,
+                    title: 'Transactions',
+                    icon: FontAwesomeIcons.clockRotateLeft,
                     color: Colors.blue,
                     onTap: () {
                       // Handle transaction history
@@ -84,7 +82,7 @@ class PaymentPage extends StatelessWidget {
                   ),
                   PaymentCard(
                     title: 'Payment Settings',
-                    icon: FontAwesomeIcons.cogs,
+                    icon: FontAwesomeIcons.gears,
                     color: Colors.purple,
                     onTap: () {
                       // Handle payment settings
@@ -106,7 +104,8 @@ class PaymentCard extends StatelessWidget {
   final Color color;
   final VoidCallback onTap;
 
-  PaymentCard({
+  const PaymentCard({
+    super.key,
     required this.title,
     required this.icon,
     required this.color,
@@ -130,14 +129,17 @@ class PaymentCard extends StatelessWidget {
               FaIcon(
                 icon,
                 size: 50,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primary,
               ),
-              SizedBox(height: 20),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
+              const SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
               ),
             ],

@@ -5,10 +5,7 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('About Us'),
-        centerTitle: true,
-      ),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -67,7 +64,8 @@ class AboutCard extends StatelessWidget {
   final Color color;
   final VoidCallback onTap;
 
-  AboutCard({
+  const AboutCard({
+    super.key,
     required this.title,
     required this.icon,
     required this.color,
@@ -91,14 +89,14 @@ class AboutCard extends StatelessWidget {
               FaIcon(
                 icon,
                 size: 50,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primary,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 title,
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mic_fuel/themes/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../themes/theme_notifier.dart';
@@ -94,15 +95,15 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
     // final phoneHeight = MediaQuery.of(context).size.height;
     // final phoneWidth = MediaQuery.of(context).size.width;
     return Container(
-      color: const Color.fromRGBO(245, 124, 0, 1),
+      color: KColors.secondaryOrange,
       width: double.infinity,
       height: 200,
-      padding: EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: 20.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 10.0),
+            margin: const EdgeInsets.only(bottom: 10.0),
             height: 60,
             child: const CircleAvatar(
               radius: 32.0,

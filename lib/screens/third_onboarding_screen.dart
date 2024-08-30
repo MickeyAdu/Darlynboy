@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mic_fuel/screens/fourth_onboarding_screen.dart';
 import 'package:mic_fuel/themes/colors.dart';
-import 'package:mic_fuel/src/login.dart';
+import 'package:mic_fuel/screens/login.dart';
 
 class ThirdOnboardingScreen extends StatelessWidget {
   const ThirdOnboardingScreen({super.key});
@@ -20,10 +20,10 @@ class ThirdOnboardingScreen extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 80.h, top: 30.h),
+                padding: EdgeInsets.only(bottom: 30.h, top: 80.h),
                 child: Image.asset(
                   "assets/delivery.png",
-                  height: 300.h,
+                  height: 350.h,
                   width: mediaQuery.width,
                 ),
               ),
@@ -38,7 +38,7 @@ class ThirdOnboardingScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold, color: KColors.primaryOrange),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 20.h, top: 145.h),
+                padding: EdgeInsets.only(bottom: 20.h, top: 95.h),
                 child: DotsIndicator(
                   dotsCount: 3,
                   position: 1,

@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/maki_icons.dart';
-import 'package:mic_fuel/src/pay_page.dart';
+import 'package:mic_fuel/screens/pay_page.dart';
 import 'package:mic_fuel/themes/colors.dart';
-import 'package:mic_fuel/themes/theme_notifier.dart';
 import 'package:mic_fuel/widgets/custom_elevated_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});
 
   @override
-  _DetailsScreenState createState() => _DetailsScreenState();
+  DetailsScreenState createState() => DetailsScreenState();
 }
 
-class _DetailsScreenState extends State<DetailsScreen> {
+class DetailsScreenState extends State<DetailsScreen> {
   late Future<Map<String, dynamic>> _detailsFuture;
-  int? _selectedStationIndex;
-  String _selectedFuelType = "";
+  // int? _selectedStationIndex;
+  // String _selectedFuelType = "";
 
   int? isSelectedFuel;
-  String? _selectedQuantity;
+  // String? _selectedQuantity;
 
   Future<Map<String, dynamic>> _fetchDetails() async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -105,8 +103,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     var mediaQuery = MediaQuery.sizeOf(context);
-    ThemeProvider themeProvider =
-        Provider.of<ThemeProvider>(context, listen: false);
 
     return SafeArea(
       child: Scaffold(
@@ -135,7 +131,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 'assets/total_station.jpg';
 
             return Container(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.surface,
               child: Column(
                 children: [
                   Container(
@@ -179,6 +175,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ),
                               ),
                               Text(
+                                // ignore: unnecessary_brace_in_string_interps
                                 "   ${fuelStationName}",
                                 style: textTheme.bodyLarge,
                               )
@@ -196,7 +193,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               ),
                               Text(
                                 "  $location",
-                                style: textTheme.bodyMedium!
+                                style: textTheme.bodyLarge!
                                     .copyWith(fontWeight: FontWeight.normal),
                               )
                             ],
@@ -206,20 +203,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           padding: EdgeInsets.only(bottom: 16.h),
                           child: Text(
                             "Quantity:  $quantity",
-                            style: textTheme.bodyMedium!
+                            style: textTheme.bodyLarge!
                                 .copyWith(fontWeight: FontWeight.normal),
                           ),
                         ),
                         Text(
                           "Type of Fuel:  $typeOfFuel",
-                          style: textTheme.bodyMedium!
+                          style: textTheme.bodyLarge!
                               .copyWith(fontWeight: FontWeight.normal),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 16.h),
                           child: Text(
-                            "Total:  \$$totalPrice",
-                            style: textTheme.bodyMedium!
+                            "Total:  \GHS $totalPrice",
+                            style: textTheme.bodyLarge!
                                 .copyWith(fontWeight: FontWeight.normal),
                           ),
                         ),
@@ -230,10 +227,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         Text(
                           "Also known as gasoil, regular fuel is a volatile mixture of liquid hydrocarbons, generally containing small amounts of additives, suitable for use in spark-ignition internal combustion of engines.  It can be used in the construction industry for small scale projects.",
-                          style: textTheme.bodySmall,
+                          style: textTheme.bodyMedium,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 30.0.h),
+                          padding: EdgeInsets.only(top: 40.0.h),
                           child: CustomElevatedButton(
                             label: "Proceed to Payment",
                             onTap: () => navigateToPayPage(context),

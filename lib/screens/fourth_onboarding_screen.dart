@@ -1,7 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mic_fuel/src/startPage.dart';
+import 'package:mic_fuel/screens/startPage.dart';
 import 'package:mic_fuel/themes/colors.dart';
 import 'package:mic_fuel/widgets/custom_elevated_button.dart';
 
@@ -34,10 +34,10 @@ class FourthOnboardingScreen extends StatelessWidget {
                 ],
               ),
               Padding(
-                  padding: EdgeInsets.only(bottom: 18.h, top: 8.h),
+                  padding: EdgeInsets.only(bottom: 38.h, top: 8.h),
                   child: Image.asset('assets/Service.png')),
               Padding(
-                padding: EdgeInsets.only(top: 40.h),
+                padding: EdgeInsets.only(top: 75.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -60,7 +60,7 @@ class FourthOnboardingScreen extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.normal),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 20.h, top: 80.h),
+                padding: EdgeInsets.only(bottom: 20.h, top: 70.h),
                 child: DotsIndicator(
                   dotsCount: 3,
                   position: 2,

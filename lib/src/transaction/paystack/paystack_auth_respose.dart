@@ -27,7 +27,8 @@
 //   }
 // }
 
-class PaystackAuthRespose {
+class 
+PaystackAuthRespose {
   final String authorization_url;
 
   PaystackAuthRespose({required this.authorization_url});

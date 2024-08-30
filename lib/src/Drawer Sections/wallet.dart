@@ -5,10 +5,6 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Wallet'),
-        centerTitle: true,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -21,15 +17,15 @@ class WalletPage extends StatelessWidget {
                 children: <Widget>[
                   WalletCard(
                     title: 'Add Money',
-                    icon: FontAwesomeIcons.plusCircle,
+                    icon: FontAwesomeIcons.circlePlus,
                     color: Colors.green,
                     onTap: () {
                       // Handle add money
                     },
                   ),
                   WalletCard(
-                    title: 'Transaction History',
-                    icon: FontAwesomeIcons.history,
+                    title: 'Transactions',
+                    icon: FontAwesomeIcons.clockRotateLeft,
                     color: Colors.blue,
                     onTap: () {
                       // Handle transaction history
@@ -37,7 +33,7 @@ class WalletPage extends StatelessWidget {
                   ),
                   WalletCard(
                     title: 'Transfer Money',
-                    icon: FontAwesomeIcons.exchangeAlt,
+                    icon: FontAwesomeIcons.rightLeft,
                     color: Colors.orange,
                     onTap: () {
                       // Handle transfer money
@@ -45,7 +41,7 @@ class WalletPage extends StatelessWidget {
                   ),
                   WalletCard(
                     title: 'Settings',
-                    icon: FontAwesomeIcons.cogs,
+                    icon: FontAwesomeIcons.gears,
                     color: Colors.purple,
                     onTap: () {
                       // Handle settings
@@ -67,7 +63,8 @@ class WalletCard extends StatelessWidget {
   final Color color;
   final VoidCallback onTap;
 
-  WalletCard({
+  const WalletCard({
+    super.key,
     required this.title,
     required this.icon,
     required this.color,
@@ -91,14 +88,14 @@ class WalletCard extends StatelessWidget {
               FaIcon(
                 icon,
                 size: 50,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primary,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 title,
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ],

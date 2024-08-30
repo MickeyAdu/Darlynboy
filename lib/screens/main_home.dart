@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/maki_icons.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
-import 'package:mic_fuel/src/choice_page.dart';
+import 'package:mic_fuel/screens/choice_page.dart';
 import 'package:mic_fuel/themes/colors.dart';
+import 'package:mic_fuel/themes/style.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,9 +19,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   GoogleMapController? mapController;
-  Location location = Location();
+  // Location location = Location(latitude: 0.0, longitude: 0.0, timestamp: null);
   LatLng _initialPosition = const LatLng(6.6731, -1.5637);
   Set<Marker> _markers = {};
+  Position? _currentPosition; // Using the Position type from geolocator
+  String _cityName = "Fetching location...";
 
   // List of fuel stations
   final List<String> fuelStations = [
@@ -32,20 +36,31 @@ class _HomeScreenState extends State<HomeScreen> {
   // Fixed coordinates for different fuel stations
   final List<List<LatLng>> fuelStationsCoordinates = [
     [
-      const LatLng(6.683, -1.565), // Total station 1
-      LatLng(6.693, -1.575), // Total station 2
+      const LatLng(4.683, -1.165), // Total station 1
+      const LatLng(8.993, -2.575),
+      const LatLng(12.693, -3.575),
+      const LatLng(20.693, -7.575),
+      const LatLng(22.693, -1.575),
     ],
     [
-      LatLng(6.672, -1.564), // Shell station 1
-      LatLng(6.681, -1.572), // Shell station 2
+      const LatLng(6.672, -1.564), // Shell station 1
+      const LatLng(6.681, -1.572),
+      const LatLng(1.693, -9.975),
+      const LatLng(5.693, -7.575),
+      const LatLng(7.693, -4.575),
     ],
     [
-      LatLng(6.675, -1.563), // Goil station 1
-      LatLng(6.688, -1.577), // Goil station 2
+      const LatLng(6.675, -1.563), // Goil station 1
+      const LatLng(7.688, -8.577),
+      const LatLng(8.693, -5.575),
+      const LatLng(9.693, -9.575),
+      const LatLng(11.693, -2.575),
     ],
     [
-      LatLng(6.679, -1.568), // Petrosol station 1
-      LatLng(6.684, -1.574), // Petrosol station 2
+      const LatLng(6.459, -2.768), // Petrosol station 1
+      const LatLng(5.684, -4.274),
+      const LatLng(7.693, -12.775),
+      const LatLng(6.693, -51.775),
     ],
   ];
 
@@ -73,13 +88,17 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(16.0),
-          color: Colors.white.withOpacity(0.9), // Adjust the opacity as needed
+          padding: const EdgeInsets.all(16.0),
+          color: Theme.of(context)
+              .colorScheme
+              .surface, // Adjust the opacity as needed
           child: Wrap(
             children: <Widget>[
               ListTile(
-                title: Text('Confirm Navigation'),
-                subtitle: Text('Do you want to navigate to the next page?'),
+                title: const Text('Confirm Navigation'),
+                textColor: Theme.of(context).colorScheme.primary,
+                subtitle:
+                    const Text('Do you want to navigate to the next page?'),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -88,13 +107,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {
                       Navigator.of(context).pop(false);
                     },
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop(true);
                     },
-                    child: Text('OK'),
+                    child: const Text('OK'),
                   ),
                 ],
               ),
@@ -129,19 +148,65 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> fetchLocation() async {
-    var locationData = await _getCurrentLocation();
-    print(
-        "Current location: ${locationData.latitude}, ${locationData.longitude}");
+    try {
+      // Fetch the current location
+      Position locationData = await _getCurrentLocation();
+      print(
+          "Current location: ${locationData.latitude}, ${locationData.longitude}");
+
+      // Convert coordinates to a city name
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        locationData.latitude,
+        locationData.longitude,
+      );
+
+      // Get the city name from the first placemark
+      String cityName = placemarks.first.locality ?? "Unknown location";
+
+      setState(() {
+        _cityName = cityName; // Update the state to display the city name
+      });
+      print("City: $cityName"); // Optional: print the city name
+    } catch (e) {
+      print("Error fetching location or city name: $e");
+    }
   }
 
-  Future<LocationData> _getCurrentLocation() async {
-    LocationData currentLocation = await location.getLocation();
-    setState(() {
-      _initialPosition =
-          LatLng(currentLocation.latitude!, currentLocation.longitude!);
-    });
-    return currentLocation;
+  Future<Position> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location services are enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    // Check for location permissions
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied.');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // Get the current position
+    return await Geolocator.getCurrentPosition();
   }
+  // Future<LocationData> _getCurrentLocation() async {
+  //   LocationData currentLocation = await location.getLocation();
+  //   setState(() {
+  //     _initialPosition =
+  //         LatLng(currentLocation.latitude!, currentLocation.longitude!);
+  //   });
+  //   return currentLocation;
+  // }
 
   Future<void> _fetchFuelStations(int index) async {
     setState(() {
@@ -256,7 +321,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
     var mediaQuery = MediaQuery.of(context).size;
 
     return SafeArea(
@@ -290,7 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 80.h,
           width: mediaQuery.width,
           decoration: BoxDecoration(
-            color: KColors.primaryWhite,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.r),
               topRight: Radius.circular(30.r),
@@ -325,7 +389,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         width: 210.w,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Icon(
                               Maki.fuel,
@@ -335,7 +399,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Text(
                               fuelStations[index],
-                              style: textTheme.bodyMedium!.copyWith(
+                              style: bodyMedium.copyWith(
                                 color: isSelectedList[index]
                                     ? KColors.primaryWhite
                                     : KColors.primaryBlack,

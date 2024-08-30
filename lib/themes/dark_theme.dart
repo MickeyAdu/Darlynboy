@@ -7,7 +7,7 @@ ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     fontFamily: 'Poppins',
     colorScheme: ColorScheme.dark(
-      surface: Colors.black,
-      primary: Colors.white,
-      secondary: Colors.grey[50]!,
-    ));
+        surface: Colors.black,
+        primary: Colors.white,
+        secondary: Colors.grey[50]!,
+        tertiary: Colors.black54));

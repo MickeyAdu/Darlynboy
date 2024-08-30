@@ -5,11 +5,13 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class ImageUploadScreen extends StatefulWidget {
+  const ImageUploadScreen({super.key});
+
   @override
-  _ImageUploadScreenState createState() => _ImageUploadScreenState();
+  ImageUploadScreenState createState() => ImageUploadScreenState();
 }
 
-class _ImageUploadScreenState extends State<ImageUploadScreen> {
+class ImageUploadScreenState extends State<ImageUploadScreen> {
   final ImagePicker _picker = ImagePicker();
   File? _imageFile;
 
@@ -41,8 +43,8 @@ class _ImageUploadScreenState extends State<ImageUploadScreen> {
           .set({'image': downloadUrl});
 
       // Show success message
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Image uploaded and URL saved successfully')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Image uploaded and URL saved successfully')));
     } catch (e) {
       // Show error message
       ScaffoldMessenger.of(context)
@@ -54,24 +56,24 @@ class _ImageUploadScreenState extends State<ImageUploadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Upload Image'),
+        title: const Text('Upload Image'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _imageFile == null
-                ? Text('No image selected.')
+                ? const Text('No image selected.')
                 : Image.file(_imageFile!),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _pickImage,
-              child: Text('Pick Image'),
+              child: const Text('Pick Image'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _uploadImage,
-              child: Text('Upload Image'),
+              child: const Text('Upload Image'),
             ),
           ],
         ),

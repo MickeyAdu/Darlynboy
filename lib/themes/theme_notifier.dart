@@ -1,27 +1,42 @@
-import 'package:flutter/material.dart' show ChangeNotifier, ThemeData;
-import 'package:mic_fuel/themes/dark_theme.dart';
-import 'package:mic_fuel/themes/light.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 
-class ThemeProvider extends ChangeNotifier {
-  late ThemeData _selectedTheme;
-  late SharedPreferences pref;
-  ThemeProvider({bool isDark = false}) {
-    _selectedTheme = isDark ? darkTheme : lightTheme;
+class ThemeProvider with ChangeNotifier {
+  bool _isDarkMode = false;
+
+  ThemeData get getTheme {
+    return _isDarkMode ? darkTheme : lightTheme;
   }
 
-  ThemeData get getTheme => _selectedTheme;
-
-  Future<void> changeTheme() async {
-    pref = await SharedPreferences.getInstance();
-
-    if (_selectedTheme == darkTheme) {
-      _selectedTheme = lightTheme;
-      await pref.setBool("isDark", false);
-    } else {
-      _selectedTheme = darkTheme;
-      await pref.setBool("isDark", true);
-    }
+  void toggleTheme() {
+    _isDarkMode = !_isDarkMode;
     notifyListeners();
   }
+
+  final darkTheme = ThemeData(
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.black,
+      ),
+      brightness: Brightness.dark,
+      fontFamily: 'Poppins',
+      colorScheme: ColorScheme.dark(
+          surface: Colors.black,
+          primary: Colors.white,
+          secondary: Colors.grey[50]!,
+          tertiary: Colors.black54));
+
+  final lightTheme = ThemeData(
+      brightness: Brightness.light,
+      fontFamily: 'Poppins',
+      appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+          titleTextStyle: TextStyle(
+              color: Colors.black, fontSize: 21, fontFamily: 'Poppins')),
+      colorScheme: ColorScheme.light(
+        surface: Colors.grey[300]!,
+        primary: Colors.black,
+        secondary: Colors.grey[50]!,
+        tertiary: Colors.white,
+      ));
 }

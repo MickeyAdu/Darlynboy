@@ -5,8 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/maki_icons.dart';
-import 'package:mic_fuel/src/details_screen.dart';
-import 'package:mic_fuel/src/live_tracking_methods.dart';
+import 'package:mic_fuel/screens/details_screen.dart';
 
 import '../themes/colors.dart';
 import '../widgets/custom_elevated_button.dart';
@@ -39,6 +38,7 @@ class _ChoicePageState extends State<ChoicePage> {
   int? isSelectedFuel;
   String? _selectedQuantity;
 
+  String firstCategory = "1";
   final List<String> _choices = ['1 ', '2 ', '3 ', '4 '];
 
   @override
@@ -87,35 +87,20 @@ class _ChoicePageState extends State<ChoicePage> {
 
   Future<void> _sendOrderToFirestore() async {
     User? user = FirebaseAuth.instance.currentUser;
-    if (_selectedFuelType.isEmpty &&
-        _selectedQuantity == null &&
-        _price == null &&
+    if (_selectedFuelType.isEmpty ||
+        _selectedQuantity == null ||
+        _price == null ||
         _textController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('Please select fuel type, quantity and Location')),
+          content: Text('Please select fuel type, quantity, and location'),
+        ),
       );
       return;
     }
 
     try {
-      int quantity;
-      switch (_selectedQuantity) {
-        case '1 ':
-          quantity = 1;
-          break;
-        case '2 ':
-          quantity = 2;
-          break;
-        case '3 ':
-          quantity = 3;
-          break;
-        case '4 ':
-          quantity = 4;
-          break;
-        default:
-          quantity = 0;
-      }
+      int quantity = int.parse(_selectedQuantity!.trim());
 
       double totalPrice = double.parse((quantity * _price!).toStringAsFixed(2));
 
@@ -141,7 +126,7 @@ class _ChoicePageState extends State<ChoicePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: ((context) => const DetailsScreen()),
+          builder: (context) => const DetailsScreen(),
         ),
       );
     } catch (e) {
@@ -173,7 +158,7 @@ class _ChoicePageState extends State<ChoicePage> {
 
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: KColors.primaryBlack,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(top: 5.0),
@@ -190,7 +175,7 @@ class _ChoicePageState extends State<ChoicePage> {
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: const Color(0xFFFFA54B),
+                      color: const Color.fromARGB(255, 111, 112, 110),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -225,7 +210,7 @@ class _ChoicePageState extends State<ChoicePage> {
                                               // borderRadius:
                                               //     // BorderRadius.circular(10.0),
                                               ),
-                                          width: 230.sp,
+                                          width: 228.sp,
                                           child: TextField(
                                             controller: _textController,
                                             style: textTheme.bodyLarge!
@@ -246,8 +231,9 @@ class _ChoicePageState extends State<ChoicePage> {
                                                     BorderRadius.circular(
                                                         10.0.r),
                                                 borderSide: BorderSide(
-                                                    color:
-                                                        KColors.primaryBlack),
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary),
                                               ),
                                             ),
                                           ),
@@ -255,7 +241,10 @@ class _ChoicePageState extends State<ChoicePage> {
                                       : Text(
                                           " ${_textController.text} ",
                                           style: textTheme.bodyLarge!.copyWith(
-                                              fontWeight: FontWeight.normal),
+                                              fontWeight: FontWeight.normal,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary),
                                         ),
                                 ],
                               ),
@@ -287,14 +276,14 @@ class _ChoicePageState extends State<ChoicePage> {
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: KColors.primaryOrange,
+                      color: const Color.fromARGB(255, 111, 112, 110),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Select the type of fuel",
-                          style: textTheme.bodyMedium,
+                          style: textTheme.bodyLarge,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -378,7 +367,7 @@ class _ChoicePageState extends State<ChoicePage> {
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: const Color(0xFFFFA54B),
+                      color: const Color.fromARGB(255, 111, 112, 110),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -387,7 +376,7 @@ class _ChoicePageState extends State<ChoicePage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             "Select your quantity",
-                            style: textTheme.bodyMedium,
+                            style: textTheme.bodyLarge,
                           ),
                         ),
                         Container(
@@ -396,7 +385,7 @@ class _ChoicePageState extends State<ChoicePage> {
                           width: mediaQuery.width,
                           height: 50.h,
                           decoration: BoxDecoration(
-                            color: KColors.gainsBoro,
+                            color: Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.horizontal(
                               left: Radius.circular(40.r),
                               right: Radius.circular(40.r),
@@ -411,11 +400,14 @@ class _ChoicePageState extends State<ChoicePage> {
                                     _litres != null
                                         ? "$_litres Litres"
                                         : "Loading...",
-                                    style: textTheme.bodyMedium!
-                                        .copyWith(color: KColors.primaryBlack),
+                                    style: textTheme.bodyMedium!.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
                                   ),
                                   VerticalDivider(
-                                    color: KColors.primaryBlack,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                     thickness: 2,
                                     width: 10.w,
                                   ),
@@ -423,8 +415,10 @@ class _ChoicePageState extends State<ChoicePage> {
                                     _price != null
                                         ? "\GHS $_price"
                                         : "Loading...",
-                                    style: textTheme.bodyMedium!
-                                        .copyWith(color: KColors.primaryBlack),
+                                    style: textTheme.bodyMedium!.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
                                   ),
                                 ],
                               ),
@@ -445,7 +439,7 @@ class _ChoicePageState extends State<ChoicePage> {
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: const Color(0xFFFFA54B),
+                      color: const Color.fromARGB(255, 111, 112, 110),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -454,7 +448,7 @@ class _ChoicePageState extends State<ChoicePage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             "Select the number of quantity",
-                            style: textTheme.bodyMedium,
+                            style: textTheme.bodyLarge,
                           ),
                         ),
                         Container(
@@ -463,7 +457,7 @@ class _ChoicePageState extends State<ChoicePage> {
                           width: mediaQuery.width,
                           height: 50.h,
                           decoration: BoxDecoration(
-                            color: KColors.gainsBoro,
+                            color: Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.horizontal(
                               left: Radius.circular(40.r),
                               right: Radius.circular(40.r),
@@ -472,58 +466,57 @@ class _ChoicePageState extends State<ChoicePage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Selected: $_selectedQuantity',
-                                    style: textTheme.bodyMedium,
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(6.w),
-                                    width: 125.w,
-                                    height: 20.h,
-                                    decoration: BoxDecoration(
-                                      color: KColors.primaryGrey,
-                                      borderRadius: BorderRadius.horizontal(
-                                        left: Radius.circular(20.r),
-                                        right: Radius.circular(20.r),
-                                      ),
-                                    ),
-                                    child: DropdownButtonHideUnderline(
-                                      child: SizedBox(
-                                        width: 4.w,
-                                        child: DropdownButtonFormField<String>(
-                                          isExpanded: true,
-                                          value: _selectedQuantity,
-                                          items: _choices.map((choice) {
-                                            return DropdownMenuItem<String>(
-                                              value: choice,
-                                              child: Center(
-                                                child: Text(
-                                                  choice,
-                                                  style: TextStyle(
-                                                      fontSize: 14.sp,
-                                                      fontFamily: 'Poppins',
-                                                      fontWeight:
-                                                          FontWeight.normal),
-                                                ),
-                                              ),
-                                            );
-                                          }).toList(),
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _selectedQuantity = value;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                'Selected: $_selectedQuantity',
+                                style: textTheme.bodyLarge?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
                               ),
+                              Container(
+                                  width: 50.w,
+                                  margin: EdgeInsets.all(6.w),
+                                  height: 40.h,
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue.withOpacity(
+                                        .2), // Blue color with opacity
+                                    borderRadius: BorderRadius.horizontal(
+                                      left: Radius.circular(20.r),
+                                      right: Radius.circular(20.r),
+                                    ),
+                                  ),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButtonFormField<String>(
+                                      isExpanded: true,
+                                      value: _selectedQuantity,
+                                      decoration: InputDecoration(
+                                        border: InputBorder
+                                            .none, // Removes the underline
+                                      ),
+                                      items: _choices.map((choice) {
+                                        return DropdownMenuItem<String>(
+                                          value: choice,
+                                          child: Center(
+                                            child: Text(
+                                              choice,
+                                              style: TextStyle(
+                                                fontSize: 14.sp,
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedQuantity = value;
+                                        });
+                                      },
+                                    ),
+                                  )),
                             ],
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),

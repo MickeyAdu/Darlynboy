@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:mic_fuel/themes/colors.dart';
 
-const TextStyle bodyLargeTextStyle = TextStyle(
+const TextStyle bodyLarge = TextStyle(
   color: KColors.primaryBlack,
   fontSize: 20,
   fontWeight: FontWeight.bold,
   fontFamily: "Poppins",
 );
+const TextStyle bodyExLarge = TextStyle(
+  color: KColors.primaryBlack,
+  fontSize: 25,
+  fontWeight: FontWeight.bold,
+  fontFamily: "Poppins",
+);
 
-const TextStyle bodyMediumTextStyle = TextStyle(
+const TextStyle bodyMedium = TextStyle(
   color: KColors.primaryBlack,
   fontFamily: "Poppins",
   fontSize: 18,
   fontWeight: FontWeight.bold,
 );
 
-const TextStyle bodySmallTextStyle = TextStyle(
+const TextStyle bodySmall = TextStyle(
   color: KColors.primaryBlack,
   fontFamily: "Poppins",
   fontSize: 14,

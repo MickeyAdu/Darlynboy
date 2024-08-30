@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SupportPage extends StatelessWidget {
+  const SupportPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Support'),
-        centerTitle: true,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -21,7 +19,7 @@ class SupportPage extends StatelessWidget {
                 children: <Widget>[
                   SupportCard(
                     title: 'FAQ',
-                    icon: FontAwesomeIcons.questionCircle,
+                    icon: FontAwesomeIcons.circleQuestion,
                     color: Colors.blueAccent,
                     onTap: () {
                       // Handle FAQ
@@ -45,7 +43,7 @@ class SupportPage extends StatelessWidget {
                   ),
                   SupportCard(
                     title: 'Feedback',
-                    icon: FontAwesomeIcons.solidSmile,
+                    icon: FontAwesomeIcons.solidFaceSmile,
                     color: Colors.purple,
                     onTap: () {
                       // Handle feedback
@@ -67,7 +65,8 @@ class SupportCard extends StatelessWidget {
   final Color color;
   final VoidCallback onTap;
 
-  SupportCard({
+  const SupportCard({
+    super.key,
     required this.title,
     required this.icon,
     required this.color,
@@ -91,14 +90,14 @@ class SupportCard extends StatelessWidget {
               FaIcon(
                 icon,
                 size: 50,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primary,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 title,
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ],

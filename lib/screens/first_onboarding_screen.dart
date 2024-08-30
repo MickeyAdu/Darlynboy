@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttericon/maki_icons.dart';
 import 'package:mic_fuel/screens/second_onboarding_screen.dart';
 import 'package:mic_fuel/themes/colors.dart';
 
@@ -46,15 +47,26 @@ class _FirstOnboardingScreenState extends State<FirstOnboardingScreen> {
                 ),
                 child: Icon(
                   MdiIcons.fuel,
-                  color: Theme.of(context).colorScheme.tertiary,
+                  color: Theme.of(context).colorScheme.primary,
                   size: 100.sp,
                 ),
               ),
-              Text(
-                "Fuel Me",
-                style: textTheme.bodyLarge!
-                    .copyWith(color: KColors.primaryOrange, fontSize: 50),
-              )
+              ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                        colors: [
+                          KColors.primaryOrange,
+                          Color.fromARGB(255, 245, 221, 11),
+                          Color.fromARGB(255, 245, 221, 11),
+                          KColors.primaryOrange,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.topRight,
+                      ).createShader(bounds),
+                  child: Text(
+                    "Fuel Me",
+                    style: textTheme.bodyLarge
+                        ?.copyWith(color: KColors.primaryWhite, fontSize: 50),
+                  ))
             ],
           ),
         ),
