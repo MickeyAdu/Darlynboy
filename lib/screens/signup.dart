@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mic_fuel/screens/login.dart';
+import 'package:mic_fuel/screens/terms_of_service.dart';
 import 'package:mic_fuel/themes/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mic_fuel/widgets/custom_elevated_button.dart';
@@ -645,26 +646,36 @@ class _SignupState extends State<Signup> {
                                         ),
                                         SizedBox(height: 20.0.h),
 
-                                        CheckboxListTile(
-                                          title: const Text(
-                                            "I agree with the privacy policy",
-                                            style: TextStyle(
-                                                fontFamily: 'Poppins',
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.normal),
-                                          ),
-                                          checkColor: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          activeColor: KColors.primaryOrange,
-                                          value: _isAgreed,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              _isAgreed = newValue!;
-                                            });
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const TermsOfServiceScreen()));
                                           },
-                                          controlAffinity:
-                                              ListTileControlAffinity.leading,
+                                          child: CheckboxListTile(
+                                            title: const Text(
+                                              "I agree with the privacy policy",
+                                              style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 16,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            ),
+                                            checkColor: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            activeColor: KColors.primaryOrange,
+                                            value: _isAgreed,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                _isAgreed = newValue!;
+                                              });
+                                            },
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                          ),
                                         ),
 
                                         CustomElevatedButton(

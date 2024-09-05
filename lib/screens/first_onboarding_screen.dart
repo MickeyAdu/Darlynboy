@@ -36,28 +36,25 @@ class _FirstOnboardingScreenState extends State<FirstOnboardingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                decoration: BoxDecoration(
-                  color: KColors.primaryOrange,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(5.r),
-                    topRight: Radius.circular(5.r),
-                    bottomLeft: Radius.circular(5.r),
-                    bottomRight: Radius.circular(5.r),
+                  decoration: BoxDecoration(
+                    // color: KColors.primarywhite,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5.r),
+                      topRight: Radius.circular(5.r),
+                      bottomLeft: Radius.circular(5.r),
+                      bottomRight: Radius.circular(5.r),
+                    ),
                   ),
-                ),
-                child: Icon(
-                  MdiIcons.fuel,
-                  color: Theme.of(context).colorScheme.primary,
-                  size: 100.sp,
-                ),
-              ),
+                  child: Image.asset(
+                    'assets/muriel.png',
+                    height: 120.h,
+                    width: 100.w,
+                  )),
               ShaderMask(
                   shaderCallback: (bounds) => const LinearGradient(
                         colors: [
-                          KColors.primaryOrange,
-                          Color.fromARGB(255, 245, 221, 11),
-                          Color.fromARGB(255, 245, 221, 11),
-                          KColors.primaryOrange,
+                          Color.fromRGBO(64, 180, 201, 1),
+                          Color.fromRGBO(242, 85, 91, 1),
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.topRight,

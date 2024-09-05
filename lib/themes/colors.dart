@@ -7,8 +7,8 @@ class KColors {
   static const primaryGrey = Color.fromRGBO(219, 219, 219, 1);
   static const primaryBlack = Color.fromRGBO(26, 22, 14, 1);
   static const primaryWhite = Color.fromRGBO(247, 248, 250, 1);
-  static const primaryOrange = Color.fromRGBO(70, 80, 100, 1);
-  static const secondaryOrange = Color.fromRGBO(30, 40, 60, 1);
+  static const primaryOrange = Color.fromRGBO(0, 180, 216, 1);
+  static const secondaryOrange = Color.fromRGBO(0, 178, 214, 1);
   static const primaryYellow = Color.fromRGBO(239, 196, 57, 1);
   static const primaryBlue = Color.fromRGBO(12, 43, 71, 1);
   static const daveyGrey = Color.fromRGBO(80, 84, 77, 1);

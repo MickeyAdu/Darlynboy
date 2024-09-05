@@ -78,29 +78,31 @@ class _HistoryPageState extends State<HistoryPage> {
                   itemCount: orders.length,
                   itemBuilder: (context, index) {
                     final order = orders[index];
-                    return ListTile(
-                      title: Text(
-                        'Order ID: ${order.documentId}',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.surface,
+                    return Container(
+                      color: Colors.grey.shade400,
+                      child: ListTile(
+                        title: Text(
+                          'Order ID: ${order.documentId}',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
-                      ),
-                      trailing: StreamBuilder<OrderData>(
-                        stream: _listenForOrderStatusUpdates(order.documentId),
-                        builder: (context, statusSnapshot) {
-                          if (statusSnapshot.hasData) {
-                            final updatedOrder = statusSnapshot.data!;
-                            return StatusBadge(updatedOrder
-                                .status); // Display status with dynamic styling
-                          } else if (statusSnapshot.hasError) {
-                            print(
-                                'Error fetching order status update: ${statusSnapshot.error}');
-                            return const Text('Error fetching status');
-                          }
-                          return const CircularProgressIndicator();
-                        },
+                        trailing: StreamBuilder<OrderData>(
+                          stream:
+                              _listenForOrderStatusUpdates(order.documentId),
+                          builder: (context, statusSnapshot) {
+                            if (statusSnapshot.hasData) {
+                              final updatedOrder = statusSnapshot.data!;
+                              return StatusBadge(updatedOrder
+                                  .status); // Display status with dynamic styling
+                            } else if (statusSnapshot.hasError) {
+                              print(
+                                  'Error fetching order status update: ${statusSnapshot.error}');
+                              return const Text('Error fetching status');
+                            }
+                            return const CircularProgressIndicator();
+                          },
+                        ),
                       ),
                     );
                   },

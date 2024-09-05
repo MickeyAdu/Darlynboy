@@ -35,7 +35,7 @@ class FourthOnboardingScreen extends StatelessWidget {
               ),
               Padding(
                   padding: EdgeInsets.only(bottom: 38.h, top: 8.h),
-                  child: Image.asset('assets/Service.png')),
+                  child: Image.asset('assets/24.png')),
               Padding(
                 padding: EdgeInsets.only(top: 75.h),
                 child: Row(

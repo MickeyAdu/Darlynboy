@@ -2,21 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mic_fuel/screens/about_screen.dart';
 import 'package:mic_fuel/screens/notify.dart';
-import 'package:mic_fuel/src/Drawer%20Sections/Dashboard.dart';
+import 'package:mic_fuel/screens/payment_mehods_screen.dart';
+import 'package:mic_fuel/screens/support_screen.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/MyHeaderDrawer.dart';
-import 'package:mic_fuel/screens/Setting.dart';
-import 'package:mic_fuel/screens/Support.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/about.dart';
 import 'package:mic_fuel/screens/main_home.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:mic_fuel/src/Drawer%20Sections/Orders.dart';
-import 'package:mic_fuel/src/Drawer%20Sections/offer.dart';
-import 'package:mic_fuel/src/Drawer%20Sections/payment.dart';
-import 'package:mic_fuel/src/Drawer%20Sections/referandearn.dart';
+import 'package:mic_fuel/screens/Orders.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/wallet.dart';
 import 'package:mic_fuel/screens/history.dart';
 import 'package:mic_fuel/screens/login.dart';
+
+import 'schedule_delivery.dart';
+import 'settings_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -75,15 +75,15 @@ class _HomeScreenState extends State<Home> {
     var container;
 
     if (currentPage == DrawerSections.home) {
-      container = HomeScreen();
+      container = const HomeScreen();
     } else if (currentPage == DrawerSections.about) {
-      container = AboutPage();
+      container = const AboutScreen();
     } else if (currentPage == DrawerSections.payment) {
-      container = PaymentPage();
+      container = const PaymentMethodsScreen();
     } else if (currentPage == DrawerSections.support) {
-      container = SupportPage();
+      container = const SupportScreen();
     } else if (currentPage == DrawerSections.logout) {
-      container = const MyOrders();
+      container = const ScheduleFuelDeliveryScreen();
     }
     return Scaffold(
       appBar: AppBar(
@@ -118,7 +118,7 @@ class _HomeScreenState extends State<Home> {
                   case 1:
                     return const HistoryPage(); // Replace with your history page widget
                   case 2:
-                    return const SettingPage();
+                    return const SettingsScreen();
                   case 3:
                     return WalletPage(); // Replace with your settings page widget
                   default:
@@ -189,10 +189,6 @@ class _HomeScreenState extends State<Home> {
                 icon: Icons.settings_outlined,
                 text: 'Settings',
               ),
-              GButton(
-                icon: Icons.window_outlined,
-                text: 'More',
-              ),
             ],
           ),
         ),
@@ -216,7 +212,7 @@ class _HomeScreenState extends State<Home> {
               currentPage == DrawerSections.payment ? true : false),
           menuItem(4, "About", Icons.query_stats,
               currentPage == DrawerSections.about ? true : false),
-          menuItem(5, "Orders", Icons.menu_open_outlined,
+          menuItem(5, "Schedule Order", Icons.menu_open_outlined,
               currentPage == DrawerSections.logout ? true : false),
         ],
       ),

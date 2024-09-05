@@ -2,14 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mic_fuel/screens/settings_screen.dart';
+import 'package:mic_fuel/screens/support_screen.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/Dashboard.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/MyHeaderDrawer.dart';
-import 'package:mic_fuel/screens/Setting.dart';
-import 'package:mic_fuel/screens/Support.dart';
+import 'package:mic_fuel/screens/dark_mode.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/about.dart';
 import 'package:mic_fuel/screens/main_home.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:mic_fuel/src/Drawer%20Sections/Orders.dart';
+import 'package:mic_fuel/screens/Orders.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/offer.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/payment.dart';
 import 'package:mic_fuel/src/Drawer%20Sections/referandearn.dart';
@@ -84,13 +85,13 @@ class _HomeWorkerScreenState extends State<HomeWorker> {
     } else if (currentPage == DrawerSections.about) {
       container = AboutPage();
     } else if (currentPage == DrawerSections.settings) {
-      container = SettingPage();
+      container = SettingsScreen();
     } else if (currentPage == DrawerSections.dashboard) {
       container = DashboardScreen();
     } else if (currentPage == DrawerSections.payment) {
       container = PaymentPage();
     } else if (currentPage == DrawerSections.support) {
-      container = SupportPage();
+      container = SupportScreen();
     } else if (currentPage == DrawerSections.referandearn) {
       container = ReferAndEarnPage();
     } else if (currentPage == DrawerSections.wallet) {
@@ -132,7 +133,7 @@ class _HomeWorkerScreenState extends State<HomeWorker> {
                   case 1:
                     return HistoryPage(); // Replace with your history page widget
                   case 2:
-                    return SettingPage();
+                    return SettingsScreen();
                   case 3:
                     return ProfilePage(); // Replace with your settings page widget
                   default:

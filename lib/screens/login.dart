@@ -71,7 +71,12 @@ class _LogInState extends State<LogIn> {
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [KColors.primaryOrange, KColors.primaryWhite])),
+                        colors: [
+                      KColors.primaryOrange,
+                      KColors.primaryOrange,
+                      KColors.primaryOrange,
+                      KColors.primaryWhite
+                    ])),
                 child: Column(
                   children: [
                     Padding(
@@ -130,17 +135,14 @@ class _LogInState extends State<LogIn> {
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
                                             borderSide: const BorderSide(
-                                              color: Color.fromRGBO(
-                                                  255, 58, 16, 1),
-                                            ),
+                                                color: KColors.primaryOrange),
                                           ),
                                           focusedBorder: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
-                                            borderSide: const BorderSide(
-                                              color: Color.fromRGBO(
-                                                  255, 58, 16, 1),
-                                            ),
+                                            borderSide: BorderSide(
+                                                color: KColors.primaryOrange,
+                                                width: 2.w),
                                           ),
                                           errorBorder: OutlineInputBorder(
                                             borderRadius:
@@ -176,6 +178,7 @@ class _LogInState extends State<LogIn> {
                                             .tertiary,
                                         borderRadius:
                                             BorderRadius.circular(10.0),
+
                                       ),
                                       child: TextField(
                                         obscureText: _obscureText,
@@ -196,14 +199,14 @@ class _LogInState extends State<LogIn> {
                                           border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
-                                            borderSide: const BorderSide(
-                                                color: KColors.primaryOrange),
+                                            borderSide:  BorderSide(
+                                                color: KColors.primaryOrange,width: 2.w),
                                           ),
                                           focusedBorder: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10.0),
-                                            borderSide: const BorderSide(
-                                                color: KColors.primaryOrange),
+                                            borderSide:  BorderSide(
+                                                color: KColors.primaryOrange,width: 2.w),
                                           ),
                                           errorBorder: OutlineInputBorder(
                                             borderRadius:

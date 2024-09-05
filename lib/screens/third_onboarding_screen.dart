@@ -22,7 +22,7 @@ class ThirdOnboardingScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 30.h, top: 80.h),
                 child: Image.asset(
-                  "assets/delivery.png",
+                  "assets/22.png",
                   height: 350.h,
                   width: mediaQuery.width,
                 ),

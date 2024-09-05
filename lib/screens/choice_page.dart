@@ -46,7 +46,7 @@ class _ChoicePageState extends State<ChoicePage> {
     super.initState();
     _selectedStationIndex = fuelStations.indexOf(widget.selectedStationName);
     fetchLitreAndPrice();
-    _textController.text = "Name of Location";
+    _textController.text = "Kotei, Canam Premium";
   }
 
   Future<void> fetchLitreAndPrice() async {
@@ -175,7 +175,7 @@ class _ChoicePageState extends State<ChoicePage> {
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: const Color.fromARGB(255, 111, 112, 110),
+                      color: const Color.fromARGB(255, 196, 199, 193),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -276,7 +276,7 @@ class _ChoicePageState extends State<ChoicePage> {
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: const Color.fromARGB(255, 111, 112, 110),
+                      color: const Color.fromARGB(255, 196, 199, 193),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -366,9 +366,8 @@ class _ChoicePageState extends State<ChoicePage> {
                     height: 120.h,
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      color: const Color.fromARGB(255, 111, 112, 110),
-                    ),
+                        borderRadius: BorderRadius.circular(20.r),
+                        color: const Color.fromARGB(255, 196, 199, 193)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -438,9 +437,8 @@ class _ChoicePageState extends State<ChoicePage> {
                     height: 120.h,
                     width: mediaQuery.width,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      color: const Color.fromARGB(255, 111, 112, 110),
-                    ),
+                        borderRadius: BorderRadius.circular(20.r),
+                        color: const Color.fromARGB(255, 196, 199, 193)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -477,8 +475,8 @@ class _ChoicePageState extends State<ChoicePage> {
                                   margin: EdgeInsets.all(6.w),
                                   height: 40.h,
                                   decoration: BoxDecoration(
-                                    color: Colors.blue.withOpacity(
-                                        .2), // Blue color with opacity
+                                    // color: Colors.blue.withOpacity(
+                                    //     .2), // Blue color with opacity
                                     borderRadius: BorderRadius.horizontal(
                                       left: Radius.circular(20.r),
                                       right: Radius.circular(20.r),

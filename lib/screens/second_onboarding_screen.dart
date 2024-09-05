@@ -32,7 +32,7 @@ class SecondOnboardingScreen extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15.h, bottom: 60.h),
-                child: Image.asset("assets/second.png"),
+                child: Image.asset("assets/first.png"),
               ),
               Text(
                 "Connect with nearby",

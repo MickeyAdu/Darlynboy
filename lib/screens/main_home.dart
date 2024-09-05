@@ -340,14 +340,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 mapController = controller;
               },
             ),
-            Padding(
-              padding: EdgeInsets.all(16.w),
-              child: CircleAvatar(
-                radius: 30.r,
-                backgroundColor: KColors.primaryWhite,
-                backgroundImage: const AssetImage('assets/woman.png'),
-              ),
-            )
+            // Padding(
+            //   padding: EdgeInsets.all(16.w),
+            //   child: CircleAvatar(
+            //     radius: 30.r,
+            //     backgroundColor: KColors.primaryWhite,
+            //     backgroundImage: const AssetImage('assets/woman.png'),
+            //   ),
+            // )
           ],
         ),
         bottomSheet: Container(

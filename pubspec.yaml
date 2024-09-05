@@ -64,6 +64,11 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   shared_preferences: ^2.2.3
   provider: ^6.1.2
+  flutter_paystack_payment: ^0.1.4
+  flutter_rating_bar: ^4.0.1
+  video_player: ^2.9.1
+  fluttertoast: ^8.2.8
+  flutter_mdi_icons: ^0.1.2
  
 
 dev_dependencies:
